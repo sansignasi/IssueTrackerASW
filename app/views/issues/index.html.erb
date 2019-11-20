@@ -2,6 +2,11 @@
 
 <h1>Issues</h1>
 
+<p align="right"><Strong>Logged in as </Strong>
+<%=current_user.first_name%>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to 'Logout', logout_url %>
+</p>
+
 <table>
   <thead>
     <tr>
@@ -45,3 +50,19 @@
 <br>
 
 <%= link_to 'New Issue', new_issue_path %>
+
+<li class="pv1">
+  <%= link_to 'All Issues', issues_path %>
+</li>
+<li class="pv1">
+  <%= link_to 'Bugs', issues_path(issue_type: "bug") %>
+</li>
+<li class="pv1">
+  <%= link_to 'Enhancements', issues_path(issue_type: "enhancement") %>
+</li>
+<li class="pv1">
+  <%= link_to 'Proposals', issues_path(issue_type: "proposal") %>
+</li>
+<li class="pv1">
+  <%= link_to 'Tasks', issues_path(issue_type: "task") %>
+</li>
