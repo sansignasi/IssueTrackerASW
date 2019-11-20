@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_115836) do
+ActiveRecord::Schema.define(version: 2019_11_20_133656) do
 
   create_table "issues", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.string "type"
-    t.string "priority"
-    t.string "status"
-    t.string "asignee"
-    t.string "creator"
-    t.date "created"
-    t.date "updated"
-    t.integer "vote"
-    t.integer "watch"
+    t.string "Title"
+    t.string "Description"
+    t.string "Type"
+    t.string "Priority"
+    t.string "Status"
+    t.string "Asigned"
+    t.string "Creator"
+    t.datetime "Created"
+    t.datetime "Updated"
+    t.integer "Vote",default: 0
+    t.integer "Watch",default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

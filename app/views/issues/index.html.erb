@@ -10,7 +10,7 @@
       <th>Type</th>
       <th>Priority</th>
       <th>Status</th>
-      <th>Asignee</th>
+      <th>Asigned</th>
       <th>Creator</th>
       <th>Created</th>
       <th>Updated</th>
@@ -23,17 +23,17 @@
   <tbody>
     <% @issues.each do |issue| %>
       <tr>
-        <td><%= issue.title %></td>
-        <td><%= issue.description %></td>
-        <td><%= issue.type %></td>
-        <td><%= issue.priority %></td>
-        <td><%= issue.status %></td>
-        <td><%= issue.asignee %></td>
-        <td><%= issue.creator %></td>
-        <td><%= issue.created %></td>
-        <td><%= issue.updated %></td>
-        <td><%= issue.vote %></td>
-        <td><%= issue.watch %></td>
+        <td><%= issue.Title %></td>
+        <td><%= issue.Description %></td>
+        <td><%= issue.Type %></td>
+        <td><%= issue.Priority %></td>
+        <td><%= issue.Status %></td>
+        <td><%= issue.Asigned %></td>
+        <td><%= issue.Creator %></td>
+        <td><%= issue.Created %></td>
+        <td><%= issue.Updated %></td>
+        <td><%= issue.Vote %></td>
+        <td><%= issue.Watch %></td>
         <td><%= link_to 'Show', issue %></td>
         <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
         <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>

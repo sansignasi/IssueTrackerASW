@@ -12,58 +12,51 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :Title %>
+    <%= form.text_field :Title %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.label :Description %>
+    <%= form.text_field :Description %>
   </div>
 
   <div class="field">
-    <%= form.label :type %>
-    <%= form.text_field :type %>
+    <%= form.label :Type %>
+    <%= form.select :Type,["bug","enhancement","proposal","task"],selected:"bug"  %>
   </div>
 
   <div class="field">
-    <%= form.label :priority %>
-    <%= form.text_field :priority %>
+    <%= form.label :Priority %>
+    <%=  form.select :Priority,["trivial","minor","major","critical","blocker"],selected:"major" %>
   </div>
 
   <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
+    <%= form.label :Status %>
+    <%= form.text_field :Status %>
   </div>
 
   <div class="field">
-    <%= form.label :asignee %>
-    <%= form.text_field :asignee %>
+    <%= form.label :Asigned %>
+    <%= form.collection_select :Asigned, User.all ,:first_name,:first_name,{:include_blank => 'No assigned user'} %>
   </div>
 
   <div class="field">
-    <%= form.label :creator %>
-    <%= form.text_field :creator %>
+    <%= form.label :Creator %>
+    <%= form.text_field :Creator %>
+  </div>
+
+
+  
+
+  <div class="field">
+    <%= form.label :Vote %>
+    <%= form.number_field :Vote %>
   </div>
 
   <div class="field">
-    <%= form.label :created %>
-    <%= form.date_select :created %>
-  </div>
-
-  <div class="field">
-    <%= form.label :updated %>
-    <%= form.date_select :updated %>
-  </div>
-
-  <div class="field">
-    <%= form.label :vote %>
-    <%= form.number_field :vote %>
-  </div>
-
-  <div class="field">
-    <%= form.label :watch %>
-    <%= form.number_field :watch %>
+    <%= form.label :Watch %>
+    <%= form.number_field :Watch %>
   </div>
 
   <div class="actions">
