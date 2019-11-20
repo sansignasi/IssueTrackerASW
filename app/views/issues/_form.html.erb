@@ -32,31 +32,39 @@
   </div>
 
   <div class="field">
-    <%= form.label :Status %>
-    <%= form.text_field :Status %>
+    <%= form.label :Priority %>
+    <%=  form.select :Status,["new","minor","major","critical","blocker"],selected:"major" %>
   </div>
 
   <div class="field">
     <%= form.label :Asigned %>
     <%= form.collection_select :Asigned, User.all ,:first_name,:first_name,{:include_blank => 'No assigned user'} %>
   </div>
+  
+   <div class="field">
+    <%= form.label :file %>
+    <%= form.file_field :file %>
+
+  </div>
 
   <div class="field">
-    <%= form.label :Creator %>
-    <%= form.text_field :Creator %>
+    <%= form.hidden_field :Creator, value: current_user.id %>
+  </div>
+  
+  <div class="field">
+    <%= form.hidden_field :Created, value: Time.now %>
   </div>
 
 
   
 
   <div class="field">
-    <%= form.label :Vote %>
-    <%= form.number_field :Vote %>
+    <%= form.hidden_field :Vote, value: 0 %>
   </div>
 
+  
   <div class="field">
-    <%= form.label :Watch %>
-    <%= form.number_field :Watch %>
+    <%= form.hidden_field :Watch, value: 0 %>
   </div>
 
   <div class="actions">
