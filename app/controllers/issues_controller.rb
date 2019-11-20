@@ -64,7 +64,38 @@ class IssuesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
+  def upvote
+    @issue = Issue.find(params[:id])
+      @issue.upvote_by(current_user)
+      if(User.find(current_user.id).voted_for? @issue)
+      else
+        @issue.increment!("Watch")
+      end
+      redirect_to :issue
+  end
+    
+  def downvote
+    @issue = Issue.find(params[:id])
+    @issue.downvote_by(current_user)
+    redirect_to :issue
+  end
+  
+  def watch
+      @issue = Issue.find(params[:id])
+      @issue.upvote_by(current_user)
+      @issue.increment!("Watch")
+      redirect_to :issue
+  end
+    
+  def unwatch
+    @issue = Issue.find(params[:id])
+    if(@issue.Watch > 0)
+       @issue.decrement!("Watch")
+    end
+    redirect_to :issue
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_issue

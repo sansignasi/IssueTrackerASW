@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   
-  resources :issues
+  resources :issues do
+    member do
+      put :like, to:'issues#upvote'
+      put :dislike, to:'issues#downvote'
+      put :watch, to:'issues#watch'
+      put :unwatch, to:'issues#unwatch'
+    end
+  end
   get 'login', to: redirect('/auth/google_oauth2'), as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'auth/:provider/callback', to: 'sessions#create'

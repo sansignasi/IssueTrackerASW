@@ -37,7 +37,7 @@
         <td><%= User.find(issue.Creator).first_name %></td>
         <td><%= issue.Created %></td>
         <td><%= issue.Updated %></td>
-        <td><%= issue.Vote %></td>
+        <td><%= issue.get_upvotes.size %></td>
         <td><%= issue.Watch %></td>
         <td><%= link_to 'Show', issue %></td>
         <% if User.find(issue.Creator).id == current_user.id %>
