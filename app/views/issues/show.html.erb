@@ -54,6 +54,12 @@
   <strong>Watch:</strong>
   <%= @issue.Watch %>
 </p>
+     <strong>Attachment:</strong>
+
+   
+   <%= link_to 'View', @issue.file %>
+</p>
+
 
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
 <%= link_to 'Back', issues_path %>

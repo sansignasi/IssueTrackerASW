@@ -10,8 +10,8 @@ class CreateIssues < ActiveRecord::Migration[6.0]
       t.string :Creator
       t.datetime :Created
       t.datetime :Updated
-      t.integer :Vote
-      t.integer :Watch
+      t.integer :Vote ,  :default => 0
+      t.integer :Watch, :default => 0
 
       t.timestamps
     end
