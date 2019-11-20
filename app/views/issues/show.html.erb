@@ -41,6 +41,7 @@
 </p>
 
 <p>
+  
   <strong>Updated:</strong>
   <%= @issue.Updated %>
 </p>
@@ -54,10 +55,15 @@
   <strong>Watch:</strong>
   <%= @issue.Watch %>
 </p>
-     <strong>Attachment:</strong>
 
-   
+<p>
+ <% if @issue.file.attached? %>
+
+     <strong>Attachment:</strong>
    <%= link_to 'View', @issue.file %>
+   
+               <%end%>
+
 </p>
 <p>
   <%= link_to "Vote", like_issue_path(@issue.id), method: :put, class: "btn btn-warning btn-xs" %><span class="text-warning">
