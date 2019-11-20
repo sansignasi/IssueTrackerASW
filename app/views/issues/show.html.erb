@@ -32,7 +32,7 @@
 
 <p>
   <strong>Creator:</strong>
-  <%= @issue.Creator %>
+  <%= User.find(@issue.Creator).first_name %>
 </p>
 
 <p>
