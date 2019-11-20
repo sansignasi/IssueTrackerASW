@@ -6,6 +6,8 @@ class IssuesController < ApplicationController
   def index
     if(params.has_key?(:issue_type))
       @issues = Issue.where(Type: params[:issue_type])
+    elsif(params.has_key?(:issue_status))
+      @issues = Issue.where(Status: params[:issue_status])
     else
       @issues = Issue.all
     end
