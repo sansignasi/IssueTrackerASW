@@ -6,7 +6,11 @@ one:
   type: 
   priority: MyString
   status: MyString
+<<<<<<< HEAD
   asignee: MyString
+=======
+  assigned: MyString
+>>>>>>> dead917efe6133b59bc33d370aec9cc3284ad0a7
   creator: MyString
   created: 2019-11-20
   updated: 2019-11-20
@@ -19,7 +23,11 @@ two:
   type: 
   priority: MyString
   status: MyString
+<<<<<<< HEAD
   asignee: MyString
+=======
+  assigned: MyString
+>>>>>>> dead917efe6133b59bc33d370aec9cc3284ad0a7
   creator: MyString
   created: 2019-11-20
   updated: 2019-11-20

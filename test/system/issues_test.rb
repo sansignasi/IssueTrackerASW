@@ -14,7 +14,11 @@ class IssuesTest < ApplicationSystemTestCase
     visit issues_url
     click_on "New Issue"
 
+<<<<<<< HEAD
     fill_in "Asignee", with: @issue.asignee
+=======
+    fill_in "Assigned", with: @issue.assigned
+>>>>>>> dead917efe6133b59bc33d370aec9cc3284ad0a7
     fill_in "Created", with: @issue.created
     fill_in "Creator", with: @issue.creator
     fill_in "Description", with: @issue.description
@@ -35,7 +39,11 @@ class IssuesTest < ApplicationSystemTestCase
     visit issues_url
     click_on "Edit", match: :first
 
+<<<<<<< HEAD
     fill_in "Asignee", with: @issue.asignee
+=======
+    fill_in "Assigned", with: @issue.assigned
+>>>>>>> dead917efe6133b59bc33d370aec9cc3284ad0a7
     fill_in "Created", with: @issue.created
     fill_in "Creator", with: @issue.creator
     fill_in "Description", with: @issue.description
