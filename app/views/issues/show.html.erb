@@ -41,6 +41,7 @@
 </p>
 
 <p>
+  
   <strong>Updated:</strong>
   <%= @issue.Updated %>
 </p>
@@ -48,16 +49,22 @@
 <p>
   <strong>Vote:</strong>
   <%= @issue.Vote %>
+
 </p>
 
 <p>
   <strong>Watch:</strong>
   <%= @issue.Watch %>
 </p>
-     <strong>Attachment:</strong>
 
-   
+<p>
+ <% if @issue.file.attached? %>
+
+     <strong>Attachment:</strong>
    <%= link_to 'View', @issue.file %>
+   
+               <%end%>
+
 </p>
 
 
