@@ -54,10 +54,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'omniauth-google-oauth2'
 
-<<<<<<< HEAD
 gem 'bootstrap', '~> 4.3.1'
-gem 'jquery-rails'
-=======
+
 gem 'acts_as_votable'
 
->>>>>>> dd9329a0a793baeaf0db2bfa3e5cd18b18494ce1
+
