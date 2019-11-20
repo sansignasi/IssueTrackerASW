@@ -35,8 +35,13 @@
   </div>
 
   <div class="field">
+<<<<<<< HEAD
         <%= form.hidden_field :Status, value: "new" %>
 
+=======
+    <%= form.label :Status %>
+    <%=  form.select :Status,["closed","wontfix","duplicate","invalid","on hold","resolved","open","new"],selected:"new" %>
+>>>>>>> dd9329a0a793baeaf0db2bfa3e5cd18b18494ce1
   </div>
 
   <div class="field" style=margin-left:100px>

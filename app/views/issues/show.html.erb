@@ -48,8 +48,7 @@
 
 <p>
   <strong>Vote:</strong>
-  <%= @issue.Vote %>
-
+  <%= @issue.get_upvotes.size %>
 </p>
 
 <p>
@@ -66,6 +65,15 @@
                <%end%>
 
 </p>
+<p>
+  <%= link_to "Vote", like_issue_path(@issue.id), method: :put, class: "btn btn-warning btn-xs" %><span class="text-warning">
+  <%= link_to "Unvote", dislike_issue_path(@issue.id), method: :put, class: "btn btn-success btn-xs" %><span class="text-success">
+</p>
+
+<p>
+  <%= link_to "Watch", watch_issue_path(@issue.id), method: :put, class: "btn btn-warning btn-xs" %>
+  <%= link_to "Unwatch", unwatch_issue_path(@issue.id), method: :put, class: "btn btn-success btn-xs" %>
+</p> 
 
 
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
