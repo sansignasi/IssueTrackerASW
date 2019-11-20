@@ -34,13 +34,13 @@
         <td><%= issue.Priority %></td>
         <td><%= issue.Status %></td>
         <td><%= issue.Asigned %></td>
-        <td><%= issue.Creator %></td>
+        <td><%= User.find(issue.Creator).first_name %></td>
         <td><%= issue.Created %></td>
         <td><%= issue.Updated %></td>
         <td><%= issue.Vote %></td>
         <td><%= issue.Watch %></td>
         <td><%= link_to 'Show', issue %></td>
-        <% if issue.Creator == current_user.id %>
+        <% if User.find(issue.Creator).id == current_user.id %>
           <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
           <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>
