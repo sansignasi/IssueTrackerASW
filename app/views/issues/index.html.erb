@@ -57,6 +57,10 @@
   <%= link_to 'All Issues', issues_path %>
 </li>
 
+<li class="pv1">
+  <%= link_to 'My Issues', issues_path(issue_creator: current_user) %>
+</li>
+
 
 <h2>Filters</h2>
 

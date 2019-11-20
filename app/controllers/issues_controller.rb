@@ -8,6 +8,8 @@ class IssuesController < ApplicationController
       @issues = Issue.where(Type: params[:issue_type])
     elsif(params.has_key?(:issue_status))
       @issues = Issue.where(Status: params[:issue_status])
+    elsif(params.has_key?(:issue_creator))
+      @issues = Issue.where(Creator: params[:issue_creator])
     else
       @issues = Issue.all
     end
