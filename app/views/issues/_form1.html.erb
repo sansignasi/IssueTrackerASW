@@ -10,41 +10,39 @@
       </ul>
     </div>
   <% end %>
-  
 
-  <h2>Issue</h2>
-
-  <div class="field" style=margin-left:100px>
+  <div class="field">
     <%= form.label :Title %>
     <%= form.text_field :Title %>
   </div>
 
-  <div class="field"style=margin-left:100px>
+  <div class="field">
     <%= form.label :Description %>
     <%= form.text_field :Description %>
   </div>
 
-  <div class="field" style=margin-left:100px>
-        <%= form.label :Type %>
+  <div class="field" >
+        <label for="exampleFormControlSelect1">Type</label>
     <%= form.select :Type,["bug","enhancement","proposal","task"],selected:"bug"  %>
   </div>
 
-  <div class="field" style=margin-left:100px">
+  <div class="field">
     <%= form.label :Priority %>
-    <%=  form.select :Priority,["trivial","minor","major","critical","blocker"],selected:"major" %>
+    <%=  form.select :Priority,["trivial","minor","major","critical","blocker"] %>
   </div>
 
-  <div class="field">
+    <div class="field">
+    <%= form.label :Status %>
         <%= form.hidden_field :Status, value: "new" %>
 
   </div>
 
-  <div class="field" style=margin-left:100px>
+  <div class="field">
     <%= form.label :Asigned %>
     <%= form.collection_select :Asigned, User.all ,:first_name,:first_name,{:include_blank => 'No assigned user'} %>
   </div>
   
-   <div class="field" style=margin-left:100px>
+   <div class="field">
     <%= form.label :file %>
     <%= form.file_field :file %>
 
@@ -55,7 +53,7 @@
   </div>
   
   <div class="field">
-    <%= form.hidden_field :Created, value: Time.now %>
+    <%= form.hidden_field :Updated, value: Time.now %>
   </div>
 
 

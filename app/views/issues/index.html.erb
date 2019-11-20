@@ -1,35 +1,31 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Issues</h1>
-
 <p align="right"><Strong>Logged in as </Strong>
 <%=current_user.first_name%>
-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to 'Logout', logout_url %>
-</p>
+&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to 'Logout', logout_url %>
 
-<table>
+
+</p>
+<table class="table " style = margin: 10px -10px 15px 20px >
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Type</th>
-      <th>Priority</th>
-      <th>Status</th>
-      <th>Asigned</th>
-      <th>Creator</th>
-      <th>Created</th>
-      <th>Updated</th>
-      <th>Vote</th>
-      <th>Watch</th>
-      <th colspan="3"></th>
+       <th scope="col">Title</th>
+      <th scope="col">Type</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Status</th>
+      <th scope="col">Asigned</th>
+      <th scope="col">Creator</th>
+      <th scope="col">Created</th>
+      <th scope="col">Updated</th>
+      <th scope="col">Vote</th>
+         <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
-    <% @issues.each do |issue| %>
+     <% @issues.each do |issue| %>
       <tr>
         <td><%= issue.Title %></td>
-        <td><%= issue.Description %></td>
         <td><%= issue.Type %></td>
         <td><%= issue.Priority %></td>
         <td><%= issue.Status %></td>
@@ -38,7 +34,6 @@
         <td><%= issue.Created %></td>
         <td><%= issue.Updated %></td>
         <td><%= issue.Vote %></td>
-        <td><%= issue.Watch %></td>
         <td><%= link_to 'Show', issue %></td>
         <% if User.find(issue.Creator).id == current_user.id %>
           <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
@@ -49,9 +44,9 @@
   </tbody>
 </table>
 
-<br>
+<button type="button" class=" btn-outline-primaryk"><%= link_to 'NEW ISSUE', new_issue_path %></button>
 
-<%= link_to 'NEW ISSUE', new_issue_path %>
+
 <br><br>
 <li class="pv1">
   <%= link_to 'All Issues', issues_path %>
