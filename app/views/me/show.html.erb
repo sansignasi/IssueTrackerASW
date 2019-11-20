@@ -1,0 +1,12 @@
+<p><Strong>Logged in as </Strong>
+<%=current_user.first_name%>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to 'Logout', logout_url %>
+</p>
+
+
+
+<% if current_user %>
+	<% current_user.attributes.each do |k, v| %>
+		<b><%= k %>:</b> <%= v %> <br>
+	<% end %>
+<% end %>
