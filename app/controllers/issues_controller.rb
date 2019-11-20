@@ -4,7 +4,11 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.all
+    if(params.has_key?(:issue_type))
+      @issues = Issue.where(Type: params[:issue_type])
+    else
+      @issues = Issue.all
+    end
   end
 
   # GET /issues/1
