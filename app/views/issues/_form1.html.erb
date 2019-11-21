@@ -53,8 +53,8 @@
   </div>
 
   <div class="field">
-        <%= form.hidden_field :Status, value: "new" %>
-
+  <%= form.label :Status %>
+    <%=  form.select :Status,["trivial","minor","major","critical","blocker"],selected:"major" %>
   </div>
 
   <div class="form-group" style=margin-left:100px>
