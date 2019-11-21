@@ -33,12 +33,9 @@
         <td><%= User.find(issue.Creator).first_name %></td>
         <td><%= issue.Created %></td>
         <td><%= issue.Updated %></td>
-<<<<<<< HEAD
-        <td><%= issue.Vote %></td>
-=======
+
         <td><%= issue.get_upvotes.size %></td>
         <td><%= issue.Watch %></td>
->>>>>>> dd9329a0a793baeaf0db2bfa3e5cd18b18494ce1
         <td><%= link_to 'Show', issue %></td>
         <% if User.find(issue.Creator).id == current_user.id %>
           <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
