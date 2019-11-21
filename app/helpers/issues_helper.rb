@@ -35,4 +35,18 @@ module IssuesHelper
       ""
     end
   end
+  
+  def issue_priority(issue_priority)
+    if issue_priority == "trivial"
+      content_tag :span, "#{issue_priority}", class: "tag is-primary"
+    elsif issue_priority == "minor"
+      content_tag :span, "#{issue_priority}", class: "tag is-primary"
+    elsif issue_priority == "major"
+      content_tag :span, "#{issue_priority}", class: "tag is-primary"
+    elsif issue_priority == "critical"
+      content_tag :span, "#{issue_priority}", class: "tag is-primary"
+    elsif issue_priority == "blocker"
+      content_tag :span, "#{issue_priority}", class: "tag is-primary"
+    end
+  end
 end

@@ -76,6 +76,7 @@
 
 </br>
 
+
 <li class="pv1">
   <%= link_to 'New', issues_path(issue_status: "new") %>
 </li>
@@ -99,4 +100,22 @@
 </li>
 <li class="pv1">
   <%= link_to 'Closed', issues_path(issue_status: "closed") %>
+</li>
+
+</br>
+
+<li class="pv1">
+  <%= link_to 'Trivial', issues_path(issue_priority: "trivial") %>
+</li>
+<li class="pv1">
+  <%= link_to 'Minor', issues_path(issue_priority: "minor") %>
+</li>
+<li class="pv1">
+  <%= link_to 'Major', issues_path(issue_priority: "major") %>
+</li>
+<li class="pv1">
+  <%= link_to 'Critical', issues_path(issue_priority: "critical") %>
+</li>
+<li class="pv1">
+  <%= link_to 'Blocker', issues_path(issue_priority: "blocker") %>
 </li>

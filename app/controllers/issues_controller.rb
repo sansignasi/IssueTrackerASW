@@ -10,6 +10,8 @@ class IssuesController < ApplicationController
       @issues = Issue.where(Status: params[:issue_status])
     elsif(params.has_key?(:issue_creator))
       @issues = Issue.where(Creator: params[:issue_creator])
+    elsif(params.has_key?(:issue_priority))
+      @issues = Issue.where(Priority: params[:issue_priority])
     else
       @issues = Issue.all
     end
