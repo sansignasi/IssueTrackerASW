@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Pràctica ASW IssueTracker
 
-Things you may want to cover:
+Membres: 
+- Ignasi Sans
+- Pablo Iniesta
+- Jordi Santacreu
+- Pau Altet
 
-* Ruby version
+Repartiment de tasques:
 
-* System dependencies
+Ignasi Sans:
+- Info repositori
+- Registre/login Usuaris
 
-* Configuration
+Pablo Iniesta
+- Vote/unvote
+- Comments
 
-* Database creation
+Jordi Santacreu
+- Look&Feel
+- Creació/edició Issues
 
-* Database initialization
+Pau Altet:
+- Llistat issues + filtres
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
