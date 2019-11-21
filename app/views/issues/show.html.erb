@@ -1,3 +1,12 @@
+<style>
+   body{
+  margin-left: 40px;
+  margin-right: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+</style>
+<body>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -104,8 +113,9 @@
                 </div>
     <% end %>
 </div>
-
+<br>
 <% if User.find(@issue.Creator).id == current_user.id %>
   <%= link_to 'Edit', edit_issue_path(@issue) %>
 <%end%>
 <%= link_to 'Back', issues_path %>
+</body>
