@@ -4,51 +4,54 @@
   display: flex;
   justify-content: center;
 }
- .flex-container1 {
-  display: flex;
-  justify-content: left;
+ body{
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
+
 </style>
+<body>
 <h1>Issues</h1>
 <p align="right"><Strong>Logged in as </Strong>
 <%=current_user.first_name%>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to 'Logout', logout_url %>
-<h4>Filter by property</h4>
-<div class="btn-group btn-group-lg">
+<h5>Filter by property</h5>
+<div class="btn-group btn-group-sm">
 
   <button type="button" class="btn btn-light">   <%= link_to 'My Issues', issues_path(issue_creator: current_user) %></button>
-  <button type="button" class="btn btn-light"> <%= link_to 'My Issues', issues_path(issue_creator: current_user) %></button>
-
+  <button type="button" class="btn btn-light">  <%= link_to 'All Issues', issues_path %> </button>
 </div>
+<br>
 
+<h5>Filter by type</h5>
 
-<h4>Filter by type</h4>
+<div class="btn-group btn-group-sm">
 
-<div class="btn-group btn-group-lg">
-
-  <button type="button" class="btn btn-light">    <%= link_to 'Bugs', issues_path(issue_type: "bugs") %></button>
+  <button type="button" class="btn btn-light">    <%= link_to 'Bugs', issues_path(issue_type: "bug") %></button>
   <button type="button" class="btn btn-light">  <%= link_to 'Enhancements', issues_path(issue_type: "enhancement") %></button>
   <button type="button" class= "btn btn-light">  <%= link_to 'Proposals', issues_path(issue_type: "proposal") %></button>
-    <button type="button" class="btn btn-light">  <%= link_to 'Tasks', issues_path(issue_type: "task") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Tasks', issues_path(issue_type: "task") %></button>
 
 </div>
+<br>
+<h5>Filter by priority</h5>
 
-<h4>Filter by priority</h4>
 
+<div  class="btn-group btn-group-sm">
 
-<div  class="btn-group btn-group-lg">
-
-  <button type="button" class="btn btn-light">    <%= link_to 'trivial', issues_path(issue_priority: "trivial") %></button>
-  <button type="button" class="btn btn-light">  <%= link_to 'minor', issues_path(issue_priority: "minor") %></button>
-  <button type="button" class= "btn btn-light">  <%= link_to 'major', issues_path(issue_priority: "major") %></button>
-  <button type="button" class="btn btn-light">  <%= link_to 'critical', issues_path(issue_priority: "critical") %></button>
-  <button type="button" class="btn btn-light">  <%= link_to 'blocker', issues_path(issue_priority: "blocker") %></button>
+  <button type="button" class="btn btn-light">    <%= link_to 'trivial', issues_path(issue_priority: "Trivial") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'minor', issues_path(issue_priority: "Minor") %></button>
+  <button type="button" class= "btn btn-light">  <%= link_to 'major', issues_path(issue_priority: "Major") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'critical', issues_path(issue_priority: "Critical") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'blocker', issues_path(issue_priority: "Blocker") %></button>
 
 
 </div>
 <h4>Filter by status</h4>
 
-<div  class="btn-group btn-group-lg">
+<div  class="btn-group btn-group-sm">
 
   <button type="button" class="btn btn-light">     <%= link_to 'New', issues_path(issue_status: "new") %></button>
   <button type="button" class="btn btn-light">   <%= link_to 'Open', issues_path(issue_status: "open") %></button>
@@ -64,7 +67,9 @@
 
 
 </p>
-<table class="table " style = margin: 10px -10px 15px 20px >
+<div class="row d-flex justify-content-center">
+
+<table class="table table-striped" >
   <thead>
     <tr>
        <th scope="col">Title</th>
@@ -104,12 +109,15 @@
     <% end %>
   </tbody>
 </table>
+</div>
+
+<br>
 
 <button type="button" class=" btn-outline-primaryk"><%= link_to 'NEW ISSUE', new_issue_path %></button>
 
 
 <br><br>
 
-
+</body>
 
 

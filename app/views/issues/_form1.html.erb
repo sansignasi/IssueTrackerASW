@@ -1,3 +1,15 @@
+<style>
+   body{
+  margin-left: 40px;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+</style>
+
+
+<body>
+
 <%= form_with(model: issue, local: true) do |form| %>
   <% if issue.errors.any? %>
     <div id="error_explanation">
@@ -81,3 +93,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+</body>

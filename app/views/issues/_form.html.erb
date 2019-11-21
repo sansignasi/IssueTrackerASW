@@ -1,3 +1,15 @@
+ <style>
+    div.actions{
+       align-items: flex-end;
+    }
+     body{
+  margin-left: 40px;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+  </style>
+
 <%= form_with(model: issue, local: true) do |form| %>
   <% if issue.errors.any? %>
     <div id="error_explanation">
@@ -10,15 +22,11 @@
       </ul>
     </div>
   <% end %>
-  
+  <body>
 
-  <h2>Issue</h2>
+  <h2 style=margin-left:10px>Issue</h2>
   
-  <style>
-    div.actions{
-       align-items: flex-end;
-    }
-  </style>
+ 
 
   <div class="form-group" style=margin-left:100px>
     <%= form.label :Title %>
@@ -81,3 +89,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+</body>
