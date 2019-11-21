@@ -78,13 +78,13 @@
   <thead>
     <tr>
       <th scope="col"><%= link_to "Title", :sort => "Title" %></th>
-      <th scope="col">Type</th>
-      <th scope="col">Priority</th>
-      <th scope="col">Status</th>
+      <th scope="col"><%= link_to "Type", :sort => "Type" %></th>
+      <th scope="col"><%= link_to "Priority", :sort => "Priority" %></th>
+      <th scope="col"><%= link_to "Status", :sort => "Status" %></th>
       <th scope="col">Asigned</th>
       <th scope="col">Creator</th>
-      <th scope="col">Created</th>
-      <th scope="col">Updated</th>
+      <th scope="col"><%= link_to "Created", :sort => "Created" %></th>
+      <th scope="col"><%= link_to "Updated", :sort => "Updated" %></th>
       <th scope="col">Vote</th>
       <th scope="col">Watch</th>
 
@@ -94,7 +94,7 @@
   <tbody>
      <% @issues.each do |issue| %>
       <tr>
-        <td><%= issue.Title %></td>
+        <td><%= link_to issue.Title, issue %></td>
         <td><%= issue.Type %></td>
         <td><%= issue.Priority %></td>
         <td><%= issue.Status %></td>

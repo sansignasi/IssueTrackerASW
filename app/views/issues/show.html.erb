@@ -80,7 +80,7 @@
     <% @issue.comments.each do |comment| %>
       <div class="comentari">
         <p class="comenter">
-          <%= comment.user.first_name %>
+          <strong><%= comment.user.first_name %></strong>
           </p>
           <p class="coment">
             <%= comment.body %>
@@ -105,6 +105,7 @@
     <% end %>
 </div>
 
-
-<%= link_to 'Edit', edit_issue_path(@issue) %> |
+<% if User.find(@issue.Creator).id == current_user.id %>
+  <%= link_to 'Edit', edit_issue_path(@issue) %>
+<%end%>
 <%= link_to 'Back', issues_path %>

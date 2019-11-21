@@ -5,15 +5,15 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
     if(params.has_key?(:issue_type))
-      @issues = Issue.where(Type: params[:issue_type])
+      @issues = Issue.where(Type: params[:issue_type]).order(params[:sort])
     elsif(params.has_key?(:issue_status))
-      @issues = Issue.where(Status: params[:issue_status])
+      @issues = Issue.where(Status: params[:issue_status]).order(params[:sort])
     elsif(params.has_key?(:issue_creator))
-      @issues = Issue.where(Creator: params[:issue_creator])
+      @issues = Issue.where(Creator: params[:issue_creator]).order(params[:sort])
     elsif(params.has_key?(:issue_priority))
-      @issues = Issue.where(Priority: params[:issue_priority])
+      @issues = Issue.where(Priority: params[:issue_priority]).order(params[:sort])
     else
-      @issues = Issue.all
+      @issues = Issue.all.order(params[:sort])
     end
   end
 
@@ -77,6 +77,7 @@ class IssuesController < ApplicationController
       if(User.find(current_user.id).voted_for? @issue)
       else
         @issue.increment!("Watch")
+        @issue.increment!("Vote")
       end
       redirect_to :issue
   end
@@ -84,6 +85,9 @@ class IssuesController < ApplicationController
   def downvote
     @issue = Issue.find(params[:id])
     @issue.downvote_by(current_user)
+    if(User.find(current_user.id).voted_for? @issue)
+      @issue.decrement!("Vote")
+    end
     redirect_to :issue
   end
   
