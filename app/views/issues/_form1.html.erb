@@ -10,39 +10,47 @@
       </ul>
     </div>
   <% end %>
+  
 
-  <div class="field">
+  <h2>Issue</h2>
+  
+  <style>
+    div.actions{
+       align-items: flex-end;
+    }
+  </style>
+
+  <div class="form-group" style=margin-left:100px>
     <%= form.label :Title %>
     <%= form.text_field :Title %>
   </div>
 
-  <div class="field">
+  <div class="form-group"style=margin-left:100px>
     <%= form.label :Description %>
     <%= form.text_field :Description %>
   </div>
 
-  <div class="field" >
-        <label for="exampleFormControlSelect1">Type</label>
+  <div class="form-group" style=margin-left:100px>
+        <%= form.label :Type %>
     <%= form.select :Type,["bug","enhancement","proposal","task"],selected:"bug"  %>
   </div>
 
-  <div class="field">
+  <div class="form-group" style=margin-left:100px>
     <%= form.label :Priority %>
-    <%=  form.select :Priority,["trivial","minor","major","critical","blocker"] %>
+    <%=  form.select :Priority,["trivial","minor","major","critical","blocker"],selected:"major" %>
   </div>
 
-    <div class="field">
-    <%= form.label :Status %>
+  <div class="field">
         <%= form.hidden_field :Status, value: "new" %>
 
   </div>
 
-  <div class="field">
+  <div class="form-group" style=margin-left:100px>
     <%= form.label :Asigned %>
     <%= form.collection_select :Asigned, User.all ,:first_name,:first_name,{:include_blank => 'No assigned user'} %>
   </div>
   
-   <div class="field">
+   <div class="form-group" style=margin-left:100px>
     <%= form.label :file %>
     <%= form.file_field :file %>
 
@@ -52,7 +60,7 @@
     <%= form.hidden_field :Creator, value: current_user.id %>
   </div>
   
-  <div class="field">
+  <div class="field" >
     <%= form.hidden_field :Updated, value: Time.now %>
   </div>
 
@@ -69,7 +77,7 @@
   </div>
   <br>
 
-  <div class="actions" >
+  <div class="d-flex flex-row-reverse  aui-button-primary " style=margin-right:50px >
     <%= form.submit %>
   </div>
 <% end %>

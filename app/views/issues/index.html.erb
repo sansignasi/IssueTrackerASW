@@ -1,9 +1,66 @@
 <p id="notice"><%= notice %></p>
-
+<style>
+  .flex-container {
+  display: flex;
+  justify-content: center;
+}
+ .flex-container1 {
+  display: flex;
+  justify-content: left;
+}
+</style>
 <h1>Issues</h1>
 <p align="right"><Strong>Logged in as </Strong>
 <%=current_user.first_name%>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to 'Logout', logout_url %>
+<h4>Filter by property</h4>
+<div class="btn-group btn-group-lg">
+
+  <button type="button" class="btn btn-light">   <%= link_to 'My Issues', issues_path(issue_creator: current_user) %></button>
+  <button type="button" class="btn btn-light"> <%= link_to 'My Issues', issues_path(issue_creator: current_user) %></button>
+
+</div>
+
+
+<h4>Filter by type</h4>
+
+<div class="btn-group btn-group-lg">
+
+  <button type="button" class="btn btn-light">    <%= link_to 'Bugs', issues_path(issue_type: "bugs") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Enhancements', issues_path(issue_type: "enhancement") %></button>
+  <button type="button" class= "btn btn-light">  <%= link_to 'Proposals', issues_path(issue_type: "proposal") %></button>
+    <button type="button" class="btn btn-light">  <%= link_to 'Tasks', issues_path(issue_type: "task") %></button>
+
+</div>
+
+<h4>Filter by priority</h4>
+
+
+<div  class="btn-group btn-group-lg">
+
+  <button type="button" class="btn btn-light">    <%= link_to 'trivial', issues_path(issue_priority: "trivial") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'minor', issues_path(issue_priority: "minor") %></button>
+  <button type="button" class= "btn btn-light">  <%= link_to 'major', issues_path(issue_priority: "major") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'critical', issues_path(issue_priority: "critical") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'blocker', issues_path(issue_priority: "blocker") %></button>
+
+
+</div>
+<h4>Filter by status</h4>
+
+<div  class="btn-group btn-group-lg">
+
+  <button type="button" class="btn btn-light">     <%= link_to 'New', issues_path(issue_status: "new") %></button>
+  <button type="button" class="btn btn-light">   <%= link_to 'Open', issues_path(issue_status: "open") %></button>
+  <button type="button" class= "btn btn-light">   <%= link_to 'Resolved', issues_path(issue_status: "resolved") %></button>
+  <button type="button" class="btn btn-light">    <%= link_to 'On Hold', issues_path(issue_status: "on hold") %></button>
+  <button type="button" class="btn btn-light">   <%= link_to 'Invalid', issues_path(issue_status: "invalid") %></button>
+  <button type="button" class= "btn btn-light">   <%= link_to 'Duplicate', issues_path(issue_status: "duplicate") %></button>
+  <button type="button" class="btn btn-light">     <%= link_to 'Wontfix', issues_path(issue_status: "wontfix") %></button>
+  <button type="button" class="btn btn-light">   <%= link_to 'Closed', issues_path(issue_status: "closed") %></button>
+
+
+</div>
 
 
 </p>
@@ -19,6 +76,8 @@
       <th scope="col">Created</th>
       <th scope="col">Updated</th>
       <th scope="col">Vote</th>
+      <th scope="col">Watch</th>
+
          <th colspan="3"></th>
     </tr>
   </thead>
@@ -50,53 +109,7 @@
 
 
 <br><br>
-<li class="pv1">
-  <%= link_to 'All Issues', issues_path %>
-</li>
-
-<li class="pv1">
-  <%= link_to 'My Issues', issues_path(issue_creator: current_user) %>
-</li>
 
 
-<h2>Filters</h2>
 
-<li class="pv1">
-  <%= link_to 'Bugs', issues_path(issue_type: "bug") %>
-</li>
-<li class="pv1">
-  <%= link_to 'Enhancements', issues_path(issue_type: "enhancement") %>
-</li>
-<li class="pv1">
-  <%= link_to 'Proposals', issues_path(issue_type: "proposal") %>
-</li>
-<li class="pv1">
-  <%= link_to 'Tasks', issues_path(issue_type: "task") %>
-</li>
 
-</br>
-
-<li class="pv1">
-  <%= link_to 'New', issues_path(issue_status: "new") %>
-</li>
-<li class="pv1">
-  <%= link_to 'Open', issues_path(issue_status: "open") %>
-</li>
-<li class="pv1">
-  <%= link_to 'Resolved', issues_path(issue_status: "resolved") %>
-</li>
-<li class="pv1">
-  <%= link_to 'On Hold', issues_path(issue_status: "on hold") %>
-</li>
-<li class="pv1">
-  <%= link_to 'Invalid', issues_path(issue_status: "invalid") %>
-</li>
-<li class="pv1">
-  <%= link_to 'Duplicate', issues_path(issue_status: "duplicate") %>
-</li>
-<li class="pv1">
-  <%= link_to 'Wontfix', issues_path(issue_status: "wontfix") %>
-</li>
-<li class="pv1">
-  <%= link_to 'Closed', issues_path(issue_status: "closed") %>
-</li>
