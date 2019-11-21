@@ -37,11 +37,11 @@
 
 <div  class="btn-group btn-group-sm">
 
-  <button type="button" class="btn btn-light">    <%= link_to 'trivial', issues_path(issue_priority: "Trivial") %></button>
-  <button type="button" class="btn btn-light">  <%= link_to 'minor', issues_path(issue_priority: "Minor") %></button>
-  <button type="button" class= "btn btn-light">  <%= link_to 'major', issues_path(issue_priority: "Major") %></button>
-  <button type="button" class="btn btn-light">  <%= link_to 'critical', issues_path(issue_priority: "Critical") %></button>
-  <button type="button" class="btn btn-light">  <%= link_to 'blocker', issues_path(issue_priority: "Blocker") %></button>
+  <button type="button" class="btn btn-light">    <%= link_to 'Trivial', issues_path(issue_priority: "trivial") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Minor', issues_path(issue_priority: "minor") %></button>
+  <button type="button" class= "btn btn-light">  <%= link_to 'Major', issues_path(issue_priority: "major") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Critical', issues_path(issue_priority: "critical") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Blocker', issues_path(issue_priority: "blocker") %></button>
 
 
 </div>
@@ -66,7 +66,7 @@
 <table class="table table-striped" >
   <thead>
     <tr>
-       <th scope="col">Title</th>
+      <th scope="col"><%= link_to "Title", :sort => "Title" %></th>
       <th scope="col">Type</th>
       <th scope="col">Priority</th>
       <th scope="col">Status</th>
