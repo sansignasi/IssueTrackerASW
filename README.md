@@ -21,6 +21,7 @@ Pablo Iniesta
 Jordi Santacreu
 - Look&Feel
 - Creació/edició Issues
+- Attachments
 
 Pau Altet:
 - Llistat issues + filtres
