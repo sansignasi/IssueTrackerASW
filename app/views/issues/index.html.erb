@@ -4,51 +4,85 @@
   display: flex;
   justify-content: center;
 }
+<<<<<<< HEAD
+ body{
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+</style>
+<body>
+=======
  .flex-container1 {
   display: flex;
   justify-content: left;
 }
 </style>
+>>>>>>> 95b68ad7c48c0109963d3ded6835a6aa0830216c
 <h1>Issues</h1>
 <p align="right"><Strong>Logged in as </Strong>
 <%=current_user.first_name%>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to 'Logout', logout_url %>
+<<<<<<< HEAD
+<h5>Filter by property</h5>
+=======
 <h4>Filter by property</h4>
-<div class="btn-group btn-group-lg">
+>>>>>>> 95b68ad7c48c0109963d3ded6835a6aa0830216c
+<div class="btn-group btn-group-sm">
 
   <button type="button" class="btn btn-light">   <%= link_to 'My Issues', issues_path(issue_creator: current_user) %></button>
-  <button type="button" class="btn btn-light"> <%= link_to 'My Issues', issues_path(issue_creator: current_user) %></button>
-
+  <button type="button" class="btn btn-light">  <%= link_to 'All Issues', issues_path %> </button>
 </div>
+<<<<<<< HEAD
+<br>
+
+<h5>Filter by type</h5>
+=======
 
 
 <h4>Filter by type</h4>
+>>>>>>> 95b68ad7c48c0109963d3ded6835a6aa0830216c
 
-<div class="btn-group btn-group-lg">
+<div class="btn-group btn-group-sm">
 
-  <button type="button" class="btn btn-light">    <%= link_to 'Bugs', issues_path(issue_type: "bugs") %></button>
+  <button type="button" class="btn btn-light">    <%= link_to 'Bugs', issues_path(issue_type: "bug") %></button>
   <button type="button" class="btn btn-light">  <%= link_to 'Enhancements', issues_path(issue_type: "enhancement") %></button>
   <button type="button" class= "btn btn-light">  <%= link_to 'Proposals', issues_path(issue_type: "proposal") %></button>
-    <button type="button" class="btn btn-light">  <%= link_to 'Tasks', issues_path(issue_type: "task") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Tasks', issues_path(issue_type: "task") %></button>
 
 </div>
+<<<<<<< HEAD
+<br>
+<h5>Filter by priority</h5>
+=======
 
 <h4>Filter by priority</h4>
+>>>>>>> 95b68ad7c48c0109963d3ded6835a6aa0830216c
 
 
-<div  class="btn-group btn-group-lg">
+<div  class="btn-group btn-group-sm">
 
-  <button type="button" class="btn btn-light">    <%= link_to 'trivial', issues_path(issue_priority: "trivial") %></button>
-  <button type="button" class="btn btn-light">  <%= link_to 'minor', issues_path(issue_priority: "minor") %></button>
-  <button type="button" class= "btn btn-light">  <%= link_to 'major', issues_path(issue_priority: "major") %></button>
-  <button type="button" class="btn btn-light">  <%= link_to 'critical', issues_path(issue_priority: "critical") %></button>
-  <button type="button" class="btn btn-light">  <%= link_to 'blocker', issues_path(issue_priority: "blocker") %></button>
+<<<<<<< HEAD
+  <button type="button" class="btn btn-light">    <%= link_to 'trivial', issues_path(issue_priority: "Trivial") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'minor', issues_path(issue_priority: "Minor") %></button>
+  <button type="button" class= "btn btn-light">  <%= link_to 'major', issues_path(issue_priority: "Major") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'critical', issues_path(issue_priority: "Critical") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'blocker', issues_path(issue_priority: "Blocker") %></button>
+=======
+  <button type="button" class="btn btn-light">    <%= link_to 'Trivial', issues_path(issue_priority: "trivial") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Minor', issues_path(issue_priority: "minor") %></button>
+  <button type="button" class= "btn btn-light">  <%= link_to 'Major', issues_path(issue_priority: "major") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Critical', issues_path(issue_priority: "critical") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Blocker', issues_path(issue_priority: "blocker") %></button>
+>>>>>>> 95b68ad7c48c0109963d3ded6835a6aa0830216c
 
 
 </div>
 <h4>Filter by status</h4>
 
-<div  class="btn-group btn-group-lg">
+<div  class="btn-group btn-group-sm">
 
   <button type="button" class="btn btn-light">     <%= link_to 'New', issues_path(issue_status: "new") %></button>
   <button type="button" class="btn btn-light">   <%= link_to 'Open', issues_path(issue_status: "open") %></button>
@@ -64,10 +98,15 @@
 
 
 </p>
-<table class="table " style = margin: 10px -10px 15px 20px >
+<<<<<<< HEAD
+<div class="row d-flex justify-content-center">
+
+=======
+>>>>>>> 95b68ad7c48c0109963d3ded6835a6aa0830216c
+<table class="table table-striped" >
   <thead>
     <tr>
-       <th scope="col">Title</th>
+      <th scope="col"><%= link_to "Title", :sort => "Title" %></th>
       <th scope="col">Type</th>
       <th scope="col">Priority</th>
       <th scope="col">Status</th>
@@ -104,12 +143,19 @@
     <% end %>
   </tbody>
 </table>
+</div>
+
+<br>
 
 <button type="button" class=" btn-outline-primaryk"><%= link_to 'NEW ISSUE', new_issue_path %></button>
 
 
 <br><br>
 
+<<<<<<< HEAD
+</body>
+=======
 
+>>>>>>> 95b68ad7c48c0109963d3ded6835a6aa0830216c
 
 

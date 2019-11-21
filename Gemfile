@@ -61,4 +61,6 @@ gem 'bootstrap', '~> 4.3.1'
 
 gem 'acts_as_votable'
 
+gem 'jquery-rails'
+gem 'bootstrap-sass', '2.0.1'
 

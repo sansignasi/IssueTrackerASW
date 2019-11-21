@@ -1,3 +1,15 @@
+ <style>
+    div.actions{
+       align-items: flex-end;
+    }
+     body{
+  margin-left: 40px;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+  </style>
+
 <%= form_with(model: issue, local: true) do |form| %>
   <% if issue.errors.any? %>
     <div id="error_explanation">
@@ -10,26 +22,28 @@
       </ul>
     </div>
   <% end %>
+  <body>
+
+  <h2 style=margin-left:10px>Issue</h2>
   
+ 
 
-  <h2>Issue</h2>
-
-  <div class="field" style=margin-left:100px>
+  <div class="form-group" style=margin-left:100px>
     <%= form.label :Title %>
-    <%= form.text_field :Title %>
+    <%= form.text_field :Title, :required => true%>
   </div>
 
-  <div class="field"style=margin-left:100px>
+  <div class="form-group"style=margin-left:100px>
     <%= form.label :Description %>
     <%= form.text_field :Description %>
   </div>
 
-  <div class="field" style=margin-left:100px>
+  <div class="form-group" style=margin-left:100px>
         <%= form.label :Type %>
     <%= form.select :Type,["bug","enhancement","proposal","task"],selected:"bug"  %>
   </div>
 
-  <div class="field" style=margin-left:100px">
+  <div class="form-group" style=margin-left:100px>
     <%= form.label :Priority %>
     <%=  form.select :Priority,["trivial","minor","major","critical","blocker"],selected:"major" %>
   </div>
@@ -39,12 +53,12 @@
 
   </div>
 
-  <div class="field" style=margin-left:100px>
+  <div class="form-group" style=margin-left:100px>
     <%= form.label :Asigned %>
     <%= form.collection_select :Asigned, User.all ,:first_name,:first_name,{:include_blank => 'No assigned user'} %>
   </div>
   
-   <div class="field" style=margin-left:100px>
+   <div class="form-group" style=margin-left:100px>
     <%= form.label :file %>
     <%= form.file_field :file %>
 
@@ -54,7 +68,7 @@
     <%= form.hidden_field :Creator, value: current_user.id %>
   </div>
   
-  <div class="field">
+  <div class="field" >
     <%= form.hidden_field :Created, value: Time.now %>
   </div>
 
@@ -71,7 +85,9 @@
   </div>
   <br>
 
-  <div class="actions" >
+  <div class="d-flex flex-row-reverse  aui-button-primary " style=margin-right:50px >
     <%= form.submit %>
   </div>
 <% end %>
+
+</body>
