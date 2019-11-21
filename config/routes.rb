@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  
-  resources :comments
+  resources :issues
+  resources :users
   resources :issues do
+    resources :comments
     member do
       put :like, to:'issues#upvote'
       put :dislike, to:'issues#downvote'

@@ -75,6 +75,36 @@
   <%= link_to "Unwatch", unwatch_issue_path(@issue.id), method: :put, class: "btn btn-success btn-xs" %>
 </p> 
 
+<div class="issue-comments-container">
+  <h2>Comments (<%= @issue.comments.size %>)</h2>
+    <% @issue.comments.each do |comment| %>
+      <div class="comentari">
+        <p class="comenter">
+          <%= comment.user.first_name %>
+          </p>
+          <p class="coment">
+            <%= comment.body %>
+            </br>
+              </p>
+              <%= time_ago_in_words(comment.created_at) + " ago" %>
+              <% if comment.user.id == current_user.id %>
+              <%= link_to 'Delete Comment', [comment.issue, comment],
+              method: :delete,
+              data: { confirm: 'Are you sure?' } , class: "esborrar" %>
+              <% end %>
+              </div>
+              </br>
+              <% end %>
+              <%= form_with(model: [@issue, @issue.comments.build], local: true) do |form| %>
+              <div class="input-group">
+                <%= form.text_area :body, placeholder:'Write your comment' %>
+                </div>
+                <div class="actions">
+                  <%= form.submit %>
+                </div>
+    <% end %>
+</div>
+
 
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
 <%= link_to 'Back', issues_path %>
