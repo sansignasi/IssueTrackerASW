@@ -14,29 +14,28 @@
 <%=current_user.first_name%>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to 'Logout', logout_url %>
 <h4>Filter by property</h4>
-<div class="btn-group btn-group-lg">
+<div class="btn-group btn-group-sm">
 
   <button type="button" class="btn btn-light">   <%= link_to 'My Issues', issues_path(issue_creator: current_user) %></button>
-  <button type="button" class="btn btn-light"> <%= link_to 'My Issues', issues_path(issue_creator: current_user) %></button>
-
+  <button type="button" class="btn btn-light">  <%= link_to 'All Issues', issues_path %> </button>
 </div>
 
 
 <h4>Filter by type</h4>
 
-<div class="btn-group btn-group-lg">
+<div class="btn-group btn-group-sm">
 
-  <button type="button" class="btn btn-light">    <%= link_to 'Bugs', issues_path(issue_type: "bugs") %></button>
+  <button type="button" class="btn btn-light">    <%= link_to 'Bugs', issues_path(issue_type: "bug") %></button>
   <button type="button" class="btn btn-light">  <%= link_to 'Enhancements', issues_path(issue_type: "enhancement") %></button>
   <button type="button" class= "btn btn-light">  <%= link_to 'Proposals', issues_path(issue_type: "proposal") %></button>
-    <button type="button" class="btn btn-light">  <%= link_to 'Tasks', issues_path(issue_type: "task") %></button>
+  <button type="button" class="btn btn-light">  <%= link_to 'Tasks', issues_path(issue_type: "task") %></button>
 
 </div>
 
 <h4>Filter by priority</h4>
 
 
-<div  class="btn-group btn-group-lg">
+<div  class="btn-group btn-group-sm">
 
   <button type="button" class="btn btn-light">    <%= link_to 'trivial', issues_path(issue_priority: "trivial") %></button>
   <button type="button" class="btn btn-light">  <%= link_to 'minor', issues_path(issue_priority: "minor") %></button>
@@ -48,7 +47,7 @@
 </div>
 <h4>Filter by status</h4>
 
-<div  class="btn-group btn-group-lg">
+<div  class="btn-group btn-group-sm">
 
   <button type="button" class="btn btn-light">     <%= link_to 'New', issues_path(issue_status: "new") %></button>
   <button type="button" class="btn btn-light">   <%= link_to 'Open', issues_path(issue_status: "open") %></button>
@@ -64,7 +63,7 @@
 
 
 </p>
-<table class="table " style = margin: 10px -10px 15px 20px >
+<table class="table table-condensed" >
   <thead>
     <tr>
        <th scope="col">Title</th>
