@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       @users = User.all
       format.html
-      format.json {render json: @users, status: :ok, each_serializer: UserSerializer}}
+      format.json {render json: @users, status: :ok, each_serializer: UserSerializer}
     end
   end
 
