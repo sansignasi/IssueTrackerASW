@@ -4,22 +4,40 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    if(params.has_key?(:issue_type))
-      @issues = Issue.where(Type: params[:issue_type]).order(params[:sort])
-    elsif(params.has_key?(:issue_status))
-      @issues = Issue.where(Status: params[:issue_status]).order(params[:sort])
-    elsif(params.has_key?(:issue_creator))
-      @issues = Issue.where(Creator: params[:issue_creator]).order(params[:sort])
-    elsif(params.has_key?(:issue_priority))
-      @issues = Issue.where(Priority: params[:issue_priority]).order(params[:sort])
-    else
-      @issues = Issue.all.order(params[:sort])
+    respond_to do |format|
+      @issues = Issue.all
+      
+      if params.has_key?(:assignee)
+        if User.exists?(first_name: params[:assignee])
+          @issues = @issues.where(Asigned: params[:assignee])
+        else
+          format.json {render json: {"error":"User with id="+params[:assignee]+" does not exist"}, status: :unprocessable_entity}
+        end
+      end
+      
+      if params.has_key?(:type)
+        @issues = @issues.where(Type: params[:type])
+      end
+      
+      if params.has_key?(:priority)
+        @issues = @issues.where(Priority: params[:priority])
+      end
+      
+      if params.has_key?(:status)
+        @issues = @issues.where(Status: params[:status])
+      end
+      format.html
+      format.json {render json: @issues, status: :ok, each_serializer: IssuesSerializer}
     end
   end
 
   # GET /issues/1
   # GET /issues/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json {render json: @issue, status: :ok, serializer: IssueSerializer}
+    end
   end
 
   # GET /issues/new

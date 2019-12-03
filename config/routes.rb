@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'home', to: 'home#show'
   get 'me', to: 'issues#index', as: 'me'
+  
 
   root to: "home#show"
 
