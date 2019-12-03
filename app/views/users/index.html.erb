@@ -6,8 +6,16 @@
   <thead>
     <tr>
       <th>Email</th>
+      <th>&nbsp;</th>
+
       <th>Name</th>
+      <th>&nbsp;</th>
+
       <th>Token</th>
+       <th>&nbsp;</th>
+        <th>tokens</th>
+
+      
     </tr>
   </thead>
 
@@ -15,8 +23,15 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.email %></td>
+        <td>&nbsp;</td>
+
         <td><%= user.first_name %></td>
+        <td>&nbsp;</td>
+
         <td><%= user.token %></td>
+        <td>&nbsp;</td>
+        <td><%= user.uid %></td>
+
 
        
       </tr>
@@ -26,4 +41,3 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
