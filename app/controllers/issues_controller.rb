@@ -1,19 +1,64 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
+  $s = ""
+  $pi = ""
+  $t = ""
+  $a = ""
   # GET /issues
   # GET /issues.json
   def index
-    if(params.has_key?(:issue_type))
-      @issues = Issue.where(Type: params[:issue_type]).order(params[:sort])
-    elsif(params.has_key?(:issue_status))
-      @issues = Issue.where(Status: params[:issue_status]).order(params[:sort])
-    elsif(params.has_key?(:issue_creator))
-      @issues = Issue.where(Creator: params[:issue_creator]).order(params[:sort])
-    elsif(params.has_key?(:issue_priority))
-      @issues = Issue.where(Priority: params[:issue_priority]).order(params[:sort])
+    @issues = Issue.all.order(sort_column + " " + sort_direction)
+    if params[:status].present? and params[:status].length != 2
+      $s = params[:status].join
+    end
+    if params[:priority].present?
+      $pi = params[:priority].join
+    end
+    if params[:type_issue].present?
+      $t = params[:type_issue].join
+    end 
+    if params[:assignee_id].present?
+      $a = params[:assignee_id].join
+    end
+    
+    if (not params[:assignee_id].present?) and (not params[:type_issue].present?) and (not params[:priority].present?) and (not params[:status].present?)
+      $s = ""
+      $pi = ""
+      $t = ""
+      $a = ""
+    end
+    if params[:status].present? and params[:status].length == 2
+      $s = "new","open"
+    end
+    if params[:status].present? and params[:status].length != 2 and params[:status].join == "unresolved"
+      $s = "new","open"
+    end
+    
+    
+    @issues = @issues.status($s).priority($pi).type_issue($t).assignee_id($a)
+    if params.has_key?(:watcher)
+      @issues = User.find(params[:watcher]).watched
+    end
+    er=false
+    @user_aux = authenticate
+    if(@user_aux.nil?)
+     er=true
     else
-      @issues = Issue.all.order(params[:sort])
+      if params.has_key?(:watching)
+        @issues = User.find(@user_aux.id).watched
+      end
+    end
+    
+    if(er == true)
+      respond_to do |format|
+        format.json {render json: {meta: {code: 401, error_message: "Unauthorized"}}, status: :unauthorized}
+      end
+    else 
+      respond_to do |format|   
+        format.html
+        format.json {render json: @issues, status: :ok, each_serializer: IssueSerializer}
+      end
     end
   end
 
