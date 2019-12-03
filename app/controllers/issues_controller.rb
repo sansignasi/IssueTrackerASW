@@ -1,64 +1,33 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
-  $s = ""
-  $pi = ""
-  $t = ""
-  $a = ""
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.all.order(sort_column + " " + sort_direction)
-    if params[:status].present? and params[:status].length != 2
-      $s = params[:status].join
-    end
-    if params[:priority].present?
-      $pi = params[:priority].join
-    end
-    if params[:type_issue].present?
-      $t = params[:type_issue].join
-    end 
-    if params[:assignee_id].present?
-      $a = params[:assignee_id].join
-    end
-    
-    if (not params[:assignee_id].present?) and (not params[:type_issue].present?) and (not params[:priority].present?) and (not params[:status].present?)
-      $s = ""
-      $pi = ""
-      $t = ""
-      $a = ""
-    end
-    if params[:status].present? and params[:status].length == 2
-      $s = "new","open"
-    end
-    if params[:status].present? and params[:status].length != 2 and params[:status].join == "unresolved"
-      $s = "new","open"
-    end
-    
-    
-    @issues = @issues.status($s).priority($pi).type_issue($t).assignee_id($a)
-    if params.has_key?(:watcher)
-      @issues = User.find(params[:watcher]).watched
-    end
-    er=false
-    @user_aux = authenticate
-    if(@user_aux.nil?)
-     er=true
-    else
-      if params.has_key?(:watching)
-        @issues = User.find(@user_aux.id).watched
+    respond_to do |format|
+      @issues = Issue.all
+      
+      if params.has_key?(:assignee)
+        if User.exists?(id: params[:assignee])
+          @issues = @issues.where(Asigned: params[:assignee])
+        else
+          format.json {render json: {"error":"User with id="+params[:assignee]+" does not exist"}, status: :unprocessable_entity}
+        end
       end
-    end
-    
-    if(er == true)
-      respond_to do |format|
-        format.json {render json: {meta: {code: 401, error_message: "Unauthorized"}}, status: :unauthorized}
+      
+      if params.has_key?(:type)
+        @issues = @issues.where(Type: params[:type])
       end
-    else 
-      respond_to do |format|   
-        format.html
-        format.json {render json: @issues, status: :ok, each_serializer: IssueSerializer}
+      
+      if params.has_key?(:priority)
+        @issues = @issues.where(Priority: params[:priority])
       end
+      
+      if params.has_key?(:status)
+        @issues = @issues.where(Status: params[:status])
+      end
+      format.html
+      format.json {render json: @issues, status: :ok, each_serializer: IssuesSerializer}
     end
   end
 
