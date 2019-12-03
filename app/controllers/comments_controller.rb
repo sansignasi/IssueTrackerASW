@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
     end
   end
 
-	def create
+  def create
     @comment = Comment.new(comment_params)
     @issue = Issue.find(params[:issue_id])
     @comment.issue_id = @issue.id
@@ -30,17 +30,25 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    @issue = Issue.find(params[:issue_id])
-    @comment = @issue.comments.find(params[:id])
-    if @comment.user_id == current_user.id
-      @comment.destroy
-    end
-    respond_to do |format|
-      if @comment.user_id == current_user.id
-        format.json {render json: {}, status: :ok}
-        format.html {redirect_to issue_path(@issue)}
+    apiOk = false
+    if(current_user.nil?)
+      token2 = request.headers['token']
+      if(token2)
+        @user_aux = authenticate
+        if(@user_aux.nil?)
+          render json: { error_message: "Invalid token"}, status: 401
+        else
+          apiOk = true
+        end
       else
-        format.json {render json: {error: "Forbidden, you are not the creator of this comment"}, status: :forbidden}
+        render json: { error_message: "Missing token"}, status: 401
+      end
+    end
+    if (not current_user.nil?) or (apiOk)
+      @comment.destroy
+      respond_to do |format|
+        format.html {redirect_to issue_path(@issue)}
+         format.json {render json: {}, status: :ok}
       end
     end
   end
