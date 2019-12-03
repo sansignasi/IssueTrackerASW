@@ -8,7 +8,7 @@ class IssuesController < ApplicationController
       @issues = Issue.all
       
       if params.has_key?(:assignee)
-        if User.exists?(id: params[:assignee])
+        if User.exists?(first_name: params[:assignee])
           @issues = @issues.where(Asigned: params[:assignee])
         else
           format.json {render json: {"error":"User with id="+params[:assignee]+" does not exist"}, status: :unprocessable_entity}
