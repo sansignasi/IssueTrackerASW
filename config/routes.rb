@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/users/current_user' => "users#request_current_user", as: :current_user
   resources :issues
   resources :users
   resources :issues do
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'home', to: 'home#show'
   get 'me', to: 'issues#index', as: 'me'
-  get '/users/current_user' => "users#request_current_user", as: :current_user
+  
 
   root to: "home#show"
 
