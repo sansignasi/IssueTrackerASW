@@ -64,4 +64,5 @@ gem 'acts_as_votable'
 gem 'jquery-rails'
 gem 'bootstrap-sass', '2.0.1'
 gem 'rack-cors'
+gem 'active_model_serializers', require: true
 

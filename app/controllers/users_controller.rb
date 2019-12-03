@@ -7,13 +7,17 @@ class UsersController < ApplicationController
     respond_to do |format|
       @users = User.all
       format.html
-      format.json {render json: @users, status: :ok, each_serializer: UserindexSerializer}
+      format.json {render json: @users, status: :ok, each_serializer: UserSerializer}
     end
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json {render json: @user, status: :ok, serializer: UserSerializer}
+    end
   end
 
   # GET /users/new
