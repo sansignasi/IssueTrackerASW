@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
         if User.exists?(first_name: params[:assignee])
           @issues = @issues.where(Asigned: params[:assignee])
         else
-          format.json {render json: {"error":"User with id="+params[:assignee]+" does not exist"}, status: :unprocessable_entity}
+          format.json {render json: {"error":"User with id="+params[:assignee]+" does notss exist"}, status: :unprocessable_entity}
         end
       end
       
@@ -85,7 +85,7 @@ class IssuesController < ApplicationController
     @issue2 = Issue.find(params[:id])
     @issue2.destroy
     respond_to do |format|
-      format.html {redirect_to issues_url, notice: 'Issue was successfully destroyed'}
+      format.html { redirect_to issues, notice: 'Issue was successfully destroyed.' }
       format.json { render json: {"message": "success"}, status: :ok }
     end
   end
@@ -124,6 +124,18 @@ class IssuesController < ApplicationController
     end
     redirect_to :issue
   end
+  def update_file
+    @issue = Issue.find(params[:id])
+    @issue.file.attach(params.require(:file))
+  end
+  def show_attachment
+    @issue = Issue.find(params[:issue_id])
+    @file = @issue.file.find(params[:id])
+    format.json {render json: @file, status: :ok, each_serializer: IssueSerializer}
+    
+  end
+  
+
   
   private
     # Use callbacks to share common setup or constraints between actions.
