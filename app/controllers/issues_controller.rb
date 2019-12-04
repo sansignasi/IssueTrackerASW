@@ -80,6 +80,8 @@ class IssuesController < ApplicationController
           format.json {render json: {"error":"User with id="+params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
       else
         @issue_to_update = Issue.find(params[:id])
+        @issue_to_update.Updated = Time.now
+        @issue_to_update.Asigned = params[:Asigned]
         @issue_to_update.update(issue_params)
         
         format.html { redirect_to @issue_to_update }
