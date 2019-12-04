@@ -76,7 +76,7 @@ class IssuesController < ApplicationController
     else
       respond_to do |format|
         format.html { render :new }
-        format.json { render json:  {"error":"User no registrado"}, status: :unprocessable_entity }
+        format.json { render json:  {"error":"User no registrado"+params[:token]}, status: :unprocessable_entity }
       end
     end
   end
