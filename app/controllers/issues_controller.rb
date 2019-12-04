@@ -89,6 +89,7 @@ class IssuesController < ApplicationController
       else
         @issue_to_update = Issue.find(params[:id])
         @issue_to_update.Updated = Time.now
+        @issue_to_update.Asigned = Issue.find(params[:id]).Asigned
         @issue_to_update.update(issue_params)
         format.html { redirect_to @issue_to_update }
         format.json { render json: @issue_to_update, status: :ok, serializer: IssuesSerializer}
