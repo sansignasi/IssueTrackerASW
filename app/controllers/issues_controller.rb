@@ -109,7 +109,30 @@ class IssuesController < ApplicationController
     end
   end
   
+  
+  
+
+  # DELETE /issues/1
+  # DELETE /issues/1.json
+  def destroy
+    @issue2 = Issue.find(params[:id])
+    @issue2.destroy
+    respond_to do |format|
+      format.json { render json: {"message": "success"}, status: :ok }
+    end
+  end
+  
   def upvote
+    respond_to do |format|
+        @issue = Issue.find(params[:id])
+        #@issue.upvote_by(current_user)
+        #if(!User.find(current_user.id).voted_for? @issue)
+          @issue.increment!("Vote")
+          format.html { redirect_to @issue }
+          format.json { render json: @issue, status: :ok }
+        #end
+        #redirect_to :issue
+    end
     @issue = Issue.find(params[:id])
       @issue.upvote_by(current_user)
       if(User.find(current_user.id).voted_for? @issue)
@@ -117,6 +140,7 @@ class IssuesController < ApplicationController
         @issue.increment!("Vote")
       end
       redirect_to :issue
+
   end
     
   def downvote

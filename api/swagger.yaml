@@ -10,13 +10,13 @@ securityDefinitions:
    # X-User-Token Aleix: itZhA1GN8j_szrA7BG7_
    # X-User-Token Xavi: DntD-JGzAHPYZvCz6jnP
    # X-User-Token Carlota: ofAC6rmhrV2pzizzCfKV
-   APIKeyHeader:
+   APIKey:
      type: apiKey
-     in: header
-     name: X-User-Token
+     in: query
+     name: token
      
 security:
-  - APIKeyHeader: []
+  - APIKey: []
   
 # Describe your paths here
 paths:
@@ -67,11 +67,6 @@ paths:
         - in: query
           name: assignee
           description: Gets `Issue` objects by assignee
-          required: false
-          type: integer
-        - in: query
-          name: watcher
-          description: Gets `Issue` objects watched by a user
           required: false
           type: integer
       responses:
@@ -251,7 +246,7 @@ paths:
             - proposal
             - task
         - in: formData
-          name: assignee_id
+          name: Asigned
           type: string
           description: Assignee of the issue
       responses:
@@ -347,45 +342,7 @@ paths:
           $ref: '#/responses/UnauthorizedError'
         '404':
           $ref: '#/responses/NotFound'
-    put:
-      tags:
-        - Comments
-      description: Update a `Comment` object
-      consumes:
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: issue_id
-          description: ID of an Issue
-          required: true
-          type: integer
-        - in: path
-          name: comment_id
-          description: ID of a Comment
-          required: true
-          type: integer
-        - in: formData
-          name: body
-          type: string
-          description: Text of the Comment
-      responses:
-        '200':
-          description: Success
-          schema:
-            type: object
-        '401':
-          $ref: '#/responses/UnauthorizedError'
-        '403':
-          description: You can't delete a Comment created by other users
-          schema:
-            type: object
-            properties:
-              error:
-                example: 'Forbidden, you are not the creator of this comment'
-        '404':
-          $ref: '#/responses/NotFound'
+    
     delete:
       tags:
         - Comments
@@ -477,7 +434,7 @@ paths:
         '404':
           $ref: '#/responses/NotFound'
  
-  '/issues/{issue_id}/vote':
+  '/issues/{issue_id}/like':
     post:
       tags:
         - Issues
@@ -655,6 +612,9 @@ definitions:
         example: 1
       Watch:
         type: integer
+        example: 1
+      Asigned:
+        type: string
         example: 1
       created_at:
         type: string
