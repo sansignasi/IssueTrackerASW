@@ -118,13 +118,17 @@ class IssuesController < ApplicationController
     end
     redirect_to :issue
   end
-   def remove_attachment
-    @img = ActiveStorage::Attachment.find(params[:id])
-    @issue = @img.record
-    @img.purge
-    redirect_to @issue
+   def update_file
+    @issue = Issue.find(params[:id])
+    @issue.file.attach(params.require(:file))
    end
-  private
+   def show_attachment
+    @issue = Issue.find(params[:issue_id])
+    @file = @issue.file.find(params[:id])
+    format.json {render json: @file, status: :ok, each_serializer: IssueSerializer}
+    
+   end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_issue
       @issue = Issue.find(params[:id])
