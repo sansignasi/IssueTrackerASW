@@ -54,7 +54,13 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
+<<<<<<< HEAD
     @issue.user_id = current_user.id
+=======
+    @issue.Creator = 1
+    @issue.Created = Time.now
+    @issue.Status = "new"
+>>>>>>> 0b28510c7d0df8b8050ae8a030d1031ddd3f7a1b
     respond_to do |format|
       if (issue_params.has_key?(:Asigned) && issue_params[:Asigned] != "" && !User.exists?(id: issue_params[:Asigned]))
           format.json {render json: {"error":"User with id="+issue_params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
@@ -74,13 +80,22 @@ class IssuesController < ApplicationController
   # PATCH/PUT /issues/1.json
   def update
     respond_to do |format|
-      if @issue.update(issue_params)
-        format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
-        format.json { render :show, status: :ok, location: @issue }
+    if(!params[:Asigned] == nil)
+      if !User.exists?(id: params[:Asigned])
+          format.json {render json: {"error":"User with id="+params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
       else
-        format.html { render :edit }
-        format.json { render json: @issue.errors, status: :unprocessable_entity }
+        @issue_to_update = Issue.find(params[:id])
+        @issue_to_update.Updated = Time.now
+        @issue_to_update.update(issue_params)
+        format.html { redirect_to @issue_to_update }
+        format.json { render json: @issue_to_update, status: :ok, serializer: IssuesSerializer}
       end
+    else
+      @issue_to_update = Issue.find(params[:id])
+      @issue_to_update.Updated = Time.now
+      @issue_to_update.update(issue_params)
+      format.html { redirect_to @issue_to_update }
+      format.json { render json: @issue_to_update, status: :ok, serializer: IssuesSerializer}
     end
   end
 
@@ -90,7 +105,7 @@ class IssuesController < ApplicationController
     @issue2 = Issue.find(params[:id])
     @issue2.destroy
     respond_to do |format|
-      format.html { redirect_to issues, notice: 'Issue was successfully destroyed.' }
+      format.html { redirect_to issues_url, notice: 'Issue was successfully destroyed.' }
       format.json { render json: {"message": "success"}, status: :ok }
     end
   end
@@ -157,6 +172,6 @@ class IssuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
-      params.require(:issue).permit(:Title ,:Description, :Type, :Priority, :Status, :Asigned, :Creator, :Created, :Updated, :Vote, :Watch,:file)
+      params.permit(:Title ,:Description, :Type, :Priority, :Status, :Asigned, :Creator, :Created, :Updated, :Vote, :Watch,:file)
     end
 end
