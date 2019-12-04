@@ -53,8 +53,18 @@ class IssuesController < ApplicationController
   # POST /issues
   # POST /issues.json
   def create
-    @issue = Issue.new(issue_params)
+    @issue = Issue.new
     @issue.Creator = 2
+    @issue.Title = params[:Title]
+    @issue.Description = params[:Description]
+    @issue.Type = params[:Type]
+    @issue.Status = "new"
+    @issue.Priority = params[:Priority]
+    @issue.Asigned = params[:Asigned]
+    @issue.Created = Time.now
+    @issue.Vote = 0
+    @issue.Watch = 0
+    @issue.created_at = Time.now
     respond_to do |format|
       if (issue_params.has_key?(:Asigned) && issue_params[:Asigned] != "" && !User.exists?(id: issue_params[:Asigned]))
           format.json {render json: {"error":"User with id="+issue_params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
@@ -159,6 +169,6 @@ class IssuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
-      params.require(:issue).permit(:Title ,:Description, :Type, :Priority, :Asigned, :Creator, :file)
+      params.require(:issue).permit(:Title ,:Description, :Type, :Priority, :Status, :Asigned, :Creator, :Created, :Updated, :Vote, :Watch,:file)
     end
 end
