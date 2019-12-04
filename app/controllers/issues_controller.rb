@@ -53,11 +53,17 @@ class IssuesController < ApplicationController
   # POST /issues
   # POST /issues.json
   def create
-    if(!params[:token] == nil)
-      @user = User.where(token: params[:token]).first
-      params.delete :token
+    aut_token = params[:token]
+    params.delete :token
+    user = User.where(["authentication_token = ?", aut_token]).first
+    if user.nil?
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json:  {"error":"User no registrado "+params[:token]}, status: :unprocessable_entity }
+      end
+    else
       @issue = Issue.new(issue_params)
-      @issue.Creator = @user.id
+      @issue.Creator = user.id
       @issue.Created = Time.now
       @issue.Status = "new"
       respond_to do |format|
@@ -72,11 +78,6 @@ class IssuesController < ApplicationController
             format.json { render json: @issue.errors, status: :unprocessable_entity }
           end
         end
-      end
-    else
-      respond_to do |format|
-        format.html { render :new }
-        format.json { render json:  {"error":"User no registrado"+params[:token]}, status: :unprocessable_entity }
       end
     end
   end
