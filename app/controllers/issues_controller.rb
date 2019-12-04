@@ -6,7 +6,6 @@ class IssuesController < ApplicationController
   def index
     respond_to do |format|
       @issues = Issue.all
-      
       if params.has_key?(:assignee)
         if User.exists?(first_name: params[:assignee])
           @issues = @issues.where(Asigned: params[:assignee])
@@ -84,8 +83,8 @@ class IssuesController < ApplicationController
   def destroy
     @issue.destroy
     respond_to do |format|
-      format.html { redirect_to issues_url, notice: 'Issue was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to issues_url }
+      format.json { render json: {"message": "success"}, status: :ok}
     end
   end
   

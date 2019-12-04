@@ -30,25 +30,17 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    apiOk = false
-    if(current_user.nil?)
-      token2 = request.headers['token']
-      if(token2)
-        @user_aux = authenticate
-        if(@user_aux.nil?)
-          render json: { error_message: "Invalid token"}, status: 401
-        else
-          apiOk = true
-        end
-      else
-        render json: { error_message: "Missing token"}, status: 401
-      end
-    end
-    if (not current_user.nil?) or (apiOk)
+    @issue = Issue.find(params[:issue_id])
+    @comment = @issue.comments.find(params[:id])
+    if @comment.user_id == current_user.id
       @comment.destroy
-      respond_to do |format|
+    end
+    respond_to do |format|
+      if @comment.user_id == current_user.id
+        format.json {render json: {}, status: :ok}
         format.html {redirect_to issue_path(@issue)}
-         format.json {render json: {}, status: :ok}
+      else
+        format.json {render json: {error: "Forbidden, you are not the creator of this comment"}, status: :forbidden}
       end
     end
   end
