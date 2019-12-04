@@ -53,21 +53,29 @@ class IssuesController < ApplicationController
   # POST /issues
   # POST /issues.json
   def create
-    @issue = Issue.new(issue_params)
-    @issue.Creator = current_user.id
-    @issue.Created = Time.now
-    @issue.Status = "new"
-    respond_to do |format|
-      if (issue_params.has_key?(:Asigned) && issue_params[:Asigned] != "" && !User.exists?(id: issue_params[:Asigned]))
-          format.json {render json: {"error":"User with id="+issue_params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
-      else
-        if @issue.save
-          format.html { redirect_to @issue }
-          format.json { render json: @issue, status: :created, serializer: IssuesSerializer }
+    if(!request.headers['token']==nil)
+      @user = User.where(token: request.headers['token']).first
+      @issue = Issue.new(issue_params)
+      @issue.Creator = @user.id
+      @issue.Created = Time.now
+      @issue.Status = "new"
+      respond_to do |format|
+        if (issue_params.has_key?(:Asigned) && issue_params[:Asigned] != "" && !User.exists?(id: issue_params[:Asigned]))
+            format.json {render json: {"error":"User with id="+issue_params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
         else
-          format.html { render :new }
-          format.json { render json: @issue.errors, status: :unprocessable_entity }
+          if @issue.save
+            format.html { redirect_to @issue }
+            format.json { render json: @issue, status: :created, serializer: IssuesSerializer }
+          else
+            format.html { render :new }
+            format.json { render json: @issue.errors, status: :unprocessable_entity }
+          end
         end
+      end
+    else
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json:  {"error":"User no registrado"}, status: :unprocessable_entity }
       end
     end
   end
