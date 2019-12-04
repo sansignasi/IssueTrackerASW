@@ -77,6 +77,7 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
+    @issue = Issue.find(params[:id])
     @issue.destroy
     respond_to do |format|
       format.html
