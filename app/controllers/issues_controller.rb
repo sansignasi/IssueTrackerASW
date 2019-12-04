@@ -82,8 +82,7 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
-    @issue2 = Issue.find(params[:id])
-    @issue2.destroy
+    @issues.destroy
     respond_to do |format|
       format.html {redirect_to issues_url, notice: 'Issue was successfully destroyed'}
       format.json { render json: {"message": "success"}, status: :ok }
