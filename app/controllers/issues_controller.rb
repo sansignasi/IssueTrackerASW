@@ -33,6 +33,7 @@ class IssuesController < ApplicationController
   # GET /issues/1
   # GET /issues/1.json
   def show
+    @issue = Issue.find(params[:id])
     respond_to do |format|
       format.html
       format.json {render json: @issue, status: :ok, serializer: IssuesSerializer}
