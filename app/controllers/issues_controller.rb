@@ -54,13 +54,18 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
+    @issue.user_id = 2
     respond_to do |format|
-      if @issue.save
-        format.html { redirect_to @issue, notice: 'Issue was successfully created.' }
-        format.json { render :show, status: :created, location: @issue }
+      if (issue_params.has_key?(:Asigned) && issue_params[:Asigned] != "" && !User.exists?(id: issue_params[:Asigned]))
+          format.json {render json: {"error":"User with id="+issue_params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
       else
-        format.html { render :new }
-        format.json { render json: @issue.errors, status: :unprocessable_entity }
+        if @issue.save
+          format.html { redirect_to @issue }
+          format.json { render json: @issue, status: :created, serializer: IssuesSerializer }
+        else
+          format.html { render :new }
+          format.json { render json: @issue.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -95,7 +100,6 @@ class IssuesController < ApplicationController
       @issue.upvote_by(current_user)
       if(User.find(current_user.id).voted_for? @issue)
       else
-        @issue.increment!("Watch")
         @issue.increment!("Vote")
       end
       redirect_to :issue
