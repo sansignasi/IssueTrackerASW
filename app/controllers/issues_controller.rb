@@ -183,7 +183,7 @@ class IssuesController < ApplicationController
       @file = 'no file'
     end
     respond_to do |format|
-      format.json {render json:{url: 'secure-crag-93015.herokuapp.com'+@file, status: :ok }}
+      format.json {render json:{url: 'secure-crag-93015.herokuapp.com'+@file }, status: :ok}
       
       
     end
