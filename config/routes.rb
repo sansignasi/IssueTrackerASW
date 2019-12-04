@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   get 'home', to: 'home#show'
   get 'me', to: 'issues#index', as: 'me'
   
-    delete '/issues/:id/attachments/:Id',  to: 'issues#remove_attachment'
 
 
   root to: "home#show"

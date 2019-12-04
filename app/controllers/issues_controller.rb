@@ -10,7 +10,7 @@ class IssuesController < ApplicationController
         if User.exists?(first_name: params[:assignee])
           @issues = @issues.where(Asigned: params[:assignee])
         else
-          format.json {render json: {"error":"User with id="+params[:assignee]+" does not exist"}, status: :unprocessable_entity}
+          format.json {render json: {"error":"User with id="+params[:assignee]+" does notss exist"}, status: :unprocessable_entity}
         end
       end
       
@@ -33,6 +33,11 @@ class IssuesController < ApplicationController
   # GET /issues/1
   # GET /issues/1.json
   def show
+    @issue2 = Issue.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json {render json: @issue2, status: :ok, serializer: IssuesSerializer}
+    end
   end
 
   # GET /issues/new
@@ -77,10 +82,11 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
-    @issue.destroy
+    @issue2 = Issue.find(params[:id])
+    @issue2.destroy
     respond_to do |format|
-      format.html { redirect_to issues_url }
-      format.json { render json: {"message": "success"}, status: :ok}
+      format.html { redirect_to issues, notice: 'Issue was successfully destroyed.' }
+      format.json { render json: {"message": "success"}, status: :ok }
     end
   end
   
@@ -118,17 +124,20 @@ class IssuesController < ApplicationController
     end
     redirect_to :issue
   end
-   def update_file
+  def update_file
     @issue = Issue.find(params[:id])
     @issue.file.attach(params.require(:file))
-   end
-   def show_attachment
+  end
+  def show_attachment
     @issue = Issue.find(params[:issue_id])
     @file = @issue.file.find(params[:id])
     format.json {render json: @file, status: :ok, each_serializer: IssueSerializer}
     
-   end
+  end
   
+
+  
+  private
     # Use callbacks to share common setup or constraints between actions.
     def set_issue
       @issue = Issue.find(params[:id])
