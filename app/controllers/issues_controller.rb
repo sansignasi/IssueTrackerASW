@@ -33,6 +33,10 @@ class IssuesController < ApplicationController
   # GET /issues/1
   # GET /issues/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json {render json: @issue, status: :ok, serializer: IssueSerializer}
+    end
   end
 
   # GET /issues/new
@@ -77,10 +81,9 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
-    @issue = Issue.find(params[:id])
     @issue.destroy
     respond_to do |format|
-      format.html
+      format.html {redirect_to issues_url, notice: 'Issue was successfully destroyed'}
       format.json {render json: {}, status: :ok}
     end
   end
