@@ -31,16 +31,18 @@ class CommentsController < ApplicationController
   end
   
   def destroy
+    @issue = Issue.find(params[:issue_id])
+    @comment = @issue.comments.find(params[:id])
     @comment.destroy
     respond_to do |format|
-        format.json {render json: {}, status: :ok}
+        format.json {render json: {"message": "success"}, status: :ok}
         format.html {redirect_to issue_path(@issue)}
     end
   end
 
   def update
     @issue = Issue.find(params[:issue_id])
-    @comment = @issue.comments.find(params[:id])
+    @comment = @issue.comments.find(params[:comment_id])
     if @comment.user_id == current_user.id
       @comment.update(comment_params)
     end
