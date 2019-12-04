@@ -1,5 +1,6 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /issues
   # GET /issues.json
@@ -53,7 +54,6 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
-
     respond_to do |format|
       if @issue.save
         format.html { redirect_to @issue, notice: 'Issue was successfully created.' }
@@ -82,6 +82,8 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
+    @issue2 = Issue.find(params[:id])
+    @issue2.destroy
     respond_to do |format|
       format.html {redirect_to issues_url, notice: 'Issue was successfully destroyed'}
       format.json { render json: {"message": "success"}, status: :ok }
