@@ -54,7 +54,7 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
-    @issue.user_id = 2
+    @issue.user_id = current_user.id
     respond_to do |format|
       if (issue_params.has_key?(:Asigned) && issue_params[:Asigned] != "" && !User.exists?(id: issue_params[:Asigned]))
           format.json {render json: {"error":"User with id="+issue_params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
@@ -129,14 +129,7 @@ class IssuesController < ApplicationController
     redirect_to :issue
   end
   
-  def images
-    image_urls = Array.new
-    @issue.attachments.each do |img|
-      image_urls.push({id: img.id, name: img.filename, _links: {url:"https://secure-crag-93015.herokuapp.com/" + rails_blob_path(img)}})
-    end
   
-    return image_urls
-  end
   
   def update_file
     @issue = Issue.find(params[:id])
@@ -145,10 +138,15 @@ class IssuesController < ApplicationController
   
   def show_attachment
     @issue = Issue.find(params[:id])
-    
-      format.html {@file.name}
-      format.json {render json: @issue.id, status: :ok}
-    
+    if (@issue.file.attached? == true)
+      @file = @issue.file
+    else
+      @file = 'no file'
+    end
+    respond_to do |format|
+      format.html {redirect_to issues_url, notice: @file}
+      format.json {render json: @issue, status: :ok}
+    end
   end
   
   private
