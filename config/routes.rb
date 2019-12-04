@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'me', to: 'issues#index', as: 'me'
   
 
+
   root to: "home#show"
 
 end

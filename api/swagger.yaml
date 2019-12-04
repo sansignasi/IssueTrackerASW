@@ -491,73 +491,7 @@ paths:
                 example: 'Forbidden, you are not the creator of this issue'
         '404':
           $ref: '#/responses/NotFound'
-  '/issues/{issue_id}/comments/{comment_id}/attachment':
-    get:
-      tags:
-        - Attachments
-      description: Get a an Attachment from a Comment
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: issue_id
-          description: ID of an Issue
-          required: true
-          type: integer
-        - in: path
-          name: comment_id
-          description: ID of a Comment
-          required: true
-          type: integer
-      responses:
-        '200':
-          description: Success
-          schema:
-            $ref: '#/definitions/Attachment'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
-        '404':
-          $ref: '#/responses/NotFound'
-    post:
-      tags:
-        - Attachments
-      description: Attach an image to a Comment
-      produces:
-        - application/json
-      consumes:
-        - multipart/form-data
-      parameters:
-        - in: path
-          name: issue_id
-          description: ID of an Issue
-          required: true
-          type: integer
-        - in: path
-          name: comment_id
-          description: ID of a Comment
-          required: true
-          type: integer
-        - in: formData
-          name: file
-          description: Image to attach
-          type: file
-          required: true
-      responses:
-        '201':
-          description: Created
-          schema:
-            $ref: '#/definitions/Attachment'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
-        '403':
-          description: You can't attach an image to a comment of other users
-          schema:
-            type: object
-            properties:
-              error:
-                example: 'Forbidden, you are not the creator of this comment'
-        '404':
-          $ref: '#/responses/NotFound'
+ 
   '/issues/{issue_id}/vote':
     post:
       tags:
@@ -580,6 +514,7 @@ paths:
           $ref: '#/responses/UnauthorizedError'
         '404':
           $ref: '#/responses/NotFound'
+          
   '/issues/{issue_id}/watch':
     post:
       tags:
