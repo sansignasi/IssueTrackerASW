@@ -1,6 +1,8 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
+  include Rails.application.routes.url_helpers
+
 
   # GET /issues
   # GET /issues.json
@@ -54,13 +56,9 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
-<<<<<<< HEAD
-    @issue.user_id = current_user.id
-=======
-    @issue.Creator = 1
+    @issue.Creator = current_user.id
     @issue.Created = Time.now
     @issue.Status = "new"
->>>>>>> 0b28510c7d0df8b8050ae8a030d1031ddd3f7a1b
     respond_to do |format|
       if (issue_params.has_key?(:Asigned) && issue_params[:Asigned] != "" && !User.exists?(id: issue_params[:Asigned]))
           format.json {render json: {"error":"User with id="+issue_params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
@@ -81,19 +79,18 @@ class IssuesController < ApplicationController
   def update
     respond_to do |format|
       if(!params[:Asigned] == nil)
-          if !User.exists?(id: params[:Asigned])
-              format.json {render json: {"error":"User with id="+params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
-          else
-            @issue_to_update = Issue.find(params[:id])
-            @issue_to_update.Updated = Time.now
-            @issue_to_update.update(issue_params)
-            format.html { redirect_to @issue_to_update }
-            format.json { render json: @issue_to_update, status: :ok, serializer: IssuesSerializer}
-          end
+        if !User.exists?(id: params[:Asigned])
+            format.json {render json: {"error":"User with id="+params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
+        else
+          @issue_to_update = Issue.find(params[:id])
+          @issue_to_update.Updated = Time.now
+          @issue_to_update.update(issue_params)
+          format.html { redirect_to @issue_to_update }
+          format.json { render json: @issue_to_update, status: :ok, serializer: IssuesSerializer}
+        end
       else
         @issue_to_update = Issue.find(params[:id])
         @issue_to_update.Updated = Time.now
-        @issue_to_update.Asigned = Issue.find(params[:id]).Asigned
         @issue_to_update.update(issue_params)
         format.html { redirect_to @issue_to_update }
         format.json { render json: @issue_to_update, status: :ok, serializer: IssuesSerializer}
@@ -108,7 +105,6 @@ class IssuesController < ApplicationController
     @issue2 = Issue.find(params[:id])
     @issue2.destroy
     respond_to do |format|
-      format.html { redirect_to issues_url, notice: 'Issue was successfully destroyed.' }
       format.json { render json: {"message": "success"}, status: :ok }
     end
   end
@@ -157,13 +153,16 @@ class IssuesController < ApplicationController
   def show_attachment
     @issue = Issue.find(params[:id])
     if (@issue.file.attached? == true)
-      @file = @issue.file
+      @file = rails_blob_path(@issue.file, only_path: true) if @issue.file.attached?
+      @file2 =ActiveStorage::Bolb.find(params[:id])
     else
       @file = 'no file'
     end
     respond_to do |format|
-      format.html {redirect_to issues_url, notice: @file}
-      format.json {render json: @issue, status: :ok}
+      format.html {redirect_to issues_url, notice: 'https://secure-crag-93015.herokuapp.com'+@file}
+      format.json {render json:{attachment_content_type: @issue2.content_type,attachment_file_name: @issue2.filename,attachment_file_size: @issue2.byte_size,attachment_created_at: @issue2.created_at ,url: 'secure-crag-93015.herokuapp.com'+@file, status: :ok }}
+      
+      
     end
   end
   
