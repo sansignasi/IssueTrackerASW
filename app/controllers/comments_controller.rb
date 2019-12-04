@@ -31,18 +31,10 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    @issue = Issue.find(params[:issue_id])
-    @comment = @issue.comments.find(params[:id])
-    #if @comment.user_id == current_user.id
     @comment.destroy
-    #end
     respond_to do |format|
-      #if @comment.user_id == current_user.id
         format.json {render json: {}, status: :ok}
         format.html {redirect_to issue_path(@issue)}
-      #else
-        #format.json {render json: {error: "Forbidden, you are not the creator of this comment"}, status: :forbidden}
-      #end
     end
   end
 
