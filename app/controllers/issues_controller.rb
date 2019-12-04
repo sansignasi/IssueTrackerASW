@@ -147,7 +147,7 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     
       format.html {@file.name}
-      format.json {render json: @issue.id, status: :ok, each_serializer: IssueSerializer}
+      format.json {render json: @issue.id, status: :ok}
     
   end
   
