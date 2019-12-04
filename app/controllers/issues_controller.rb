@@ -10,7 +10,7 @@ class IssuesController < ApplicationController
         if User.exists?(first_name: params[:assignee])
           @issues = @issues.where(Asigned: params[:assignee])
         else
-          format.json {render json: {"error":"User with id="+params[:assignee]+" does not exist"}, status: :unprocessable_entity}
+          format.json {render json: {"error":"User with id="+params[:assignee]+" does notss exist"}, status: :unprocessable_entity}
         end
       end
       
