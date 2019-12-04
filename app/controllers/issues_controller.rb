@@ -77,11 +77,6 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
-    @issue.destroy
-    respond_to do |format|
-      format.html { redirect_to issues_url }
-      format.json { render json: {"message": "success"}, status: :ok}
-    end
   end
   
   def upvote
