@@ -54,7 +54,7 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
-    @issue.Creator = 1
+    @issue.Creator = current_user.id
     @issue.Created = Time.now
     @issue.Status = "new"
     respond_to do |format|
@@ -110,13 +110,16 @@ class IssuesController < ApplicationController
   end
   
   def upvote
-    @issue = Issue.find(params[:id])
-      @issue.upvote_by(current_user)
-      if(User.find(current_user.id).voted_for? @issue)
-      else
-        @issue.increment!("Vote")
-      end
-      redirect_to :issue
+    respond_to do |format|
+        @issue = Issue.find(params[:id])
+        #@issue.upvote_by(current_user)
+        #if(!User.find(current_user.id).voted_for? @issue)
+          @issue.increment!("Vote")
+          format.html { redirect_to @issue }
+          format.json { render json: @issue, status: :ok }
+        #end
+        #redirect_to :issue
+    end
   end
     
   def downvote
