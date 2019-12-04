@@ -133,7 +133,10 @@ class IssuesController < ApplicationController
   def show_attachment
     @issue = Issue.find(params[:id])
     @file = @issue.file.find(params[:id])
-    format.json {render json: @file, status: :ok, each_serializer: IssueSerializer}
+    respond_to do |format|
+      format.html {@file.name}
+      format.json {render json: @file, status: :ok, each_serializer: IssueSerializer}
+    end
   end
   
   private
