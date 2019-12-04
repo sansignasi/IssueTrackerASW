@@ -113,12 +113,7 @@ class IssuesController < ApplicationController
     end
     redirect_to :issue
   end
-   def remove_attachment
-    @img = ActiveStorage::Attachment.find(params[:id])
-    @issue = @img.record
-    @img.purge
-    redirect_to @issue
-   end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_issue
