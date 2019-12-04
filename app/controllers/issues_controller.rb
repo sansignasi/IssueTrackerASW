@@ -56,12 +56,12 @@ class IssuesController < ApplicationController
     @issue = Issue.new(issue_params)
     @issue.user_id = 2
     respond_to do |format|
-      if (issue_params.has_key?(:assignee_id) && issue_params[:assignee_id] != "" && !User.exists?(id: issue_params[:assignee_id]))
-          format.json {render json: {"error":"User with id="+issue_params[:assignee_id]+" does not exist"}, status: :unprocessable_entity}
+      if (issue_params.has_key?(:Asigned) && issue_params[:Asigned] != "" && !User.exists?(id: issue_params[:Asigned]))
+          format.json {render json: {"error":"User with id="+issue_params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
       else
         if @issue.save
           format.html { redirect_to @issue }
-          format.json { render json: @issue, status: :created, serializer: IssueSerializer }
+          format.json { render json: @issue, status: :created, serializer: IssuesSerializer }
         else
           format.html { render :new }
           format.json { render json: @issue.errors, status: :unprocessable_entity }
