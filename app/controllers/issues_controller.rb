@@ -1,5 +1,6 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /issues
   # GET /issues.json
@@ -53,7 +54,6 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
-
     respond_to do |format|
       if @issue.save
         format.html { redirect_to @issue, notice: 'Issue was successfully created.' }

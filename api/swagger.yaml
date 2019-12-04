@@ -35,36 +35,35 @@ paths:
           required: false
           type: string
           enum:
-            - Bug
-            - Enhancement
-            - Proposal
-            - Task
+            - bug
+            - enhancement
+            - proposal
+            - task
         - in: query
           name: priority
           description: Gets `Issue` objects by priority
           required: false
           type: string
           enum:
-            - Trivial
-            - Minor
-            - Major
-            - Critical
-            - Blocker
+            - trivial
+            - minor
+            - major
+            - critical
+            - blocker
         - in: query
           name: status
           description: Gets `Issue` objects by status
           required: false
           type: string
           enum:
-            - New
-            - Open
-            - On hold
-            - Resolved
-            - Duplicate
-            - Invalid
-            - Won't fix
-            - Closed
-            - New&Open
+            - new
+            - open
+            - on hold
+            - resolved
+            - duplicate
+            - invalid
+            - won't fix
+            - closed
         - in: query
           name: assignee
           description: Gets `Issue` objects by assignee
@@ -114,35 +113,35 @@ paths:
           description: Status of the issue
           required: true
           enum:
-            - New
-            - Open
-            - On hold
-            - Resolved
-            - Duplicate
-            - Invalid
-            - Won't fix
-            - Closed
+            - new
+            - open
+            - on hold
+            - resolved
+            - duplicate
+            - invalid
+            - won't fix
+            - closed
         - in: formData
           name: Priority
           type: string
           description: Priority of the issue
           required: true
           enum:
-            - Trivial
-            - Minor
-            - Major
-            - Critical
-            - Blocker
+            - trivial
+            - minor
+            - major
+            - critical
+            - blocker
         - in: formData
           name: Type
           type: string
           description: Type of the issue
           required: true
           enum:
-            - Bug
-            - Enhancement
-            - Proposal
-            - Task
+            - bug
+            - enhancement
+            - proposal
+            - task
         - in: formData
           name: assignee_id
           type: integer
@@ -236,35 +235,35 @@ paths:
           description: Status of the issue
           required: true
           enum:
-            - New
-            - Open
-            - On hold
-            - Resolved
-            - Duplicate
-            - Invalid
-            - Won't fix
-            - Closed
+            - new
+            - open
+            - on hold
+            - resolved
+            - duplicate
+            - invalid
+            - won't fix
+            - closed
         - in: formData
           name: Priority
           type: string
           description: Priority of the issue
           required: true
           enum:
-            - Trivial
-            - Minor
-            - Major
-            - Critical
-            - Blocker
+            - trivial
+            - minor
+            - major
+            - critical
+            - blocker
         - in: formData
           name: Type
           type: string
           description: Type of the issue
           required: true
           enum:
-            - Bug
-            - Enhancement
-            - Proposal
-            - Task
+            - bug
+            - enhancement
+            - proposal
+            - task
         - in: formData
           name: assignee_id
           type: string
@@ -558,14 +557,14 @@ paths:
           required: true
           type: string
           enum:
-            - New
-            - Open
-            - On hold
-            - Resolved
-            - Duplicate
-            - Invalid
-            - Won't fix
-            - Closed
+            - new
+            - open
+            - on hold
+            - resolved
+            - duplicate
+            - invalid
+            - won't fix
+            - closed
       responses:
         '200':
           description: Success
