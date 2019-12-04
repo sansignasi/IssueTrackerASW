@@ -55,7 +55,7 @@ class IssuesController < ApplicationController
   def create
     aut_token = params[:token]
     params.delete :token
-    user = User.where(["authentication_token = ?", aut_token]).first
+    user = User.where(["token = ?", aut_token]).first
     if user.nil?
       respond_to do |format|
         format.html { render :new }
