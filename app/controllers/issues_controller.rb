@@ -124,18 +124,20 @@ class IssuesController < ApplicationController
     end
     redirect_to :issue
   end
+  
   def update_file
     @issue = Issue.find(params[:id])
     @issue.file.attach(params.require(:file))
   end
-  def show_attachment
-    @issue = Issue.find(params[:issue_id])
-    @file = @issue.file.find(params[:id])
-    format.json {render json: @file, status: :ok, each_serializer: IssueSerializer}
-    
-  end
   
-
+  def show_attachment
+    @issue = Issue.find(params[:id])
+    @file = @issue.file.find(params[:id])
+    respond_to do |format|
+      format.html {@file.name}
+      format.json {render json: @file, status: :ok, each_serializer: IssueSerializer}
+    end
+  end
   
   private
     # Use callbacks to share common setup or constraints between actions.
