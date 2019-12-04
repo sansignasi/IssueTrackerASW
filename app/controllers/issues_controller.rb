@@ -125,6 +125,15 @@ class IssuesController < ApplicationController
     redirect_to :issue
   end
   
+  def images
+    image_urls = Array.new
+    @issue.attachments.each do |img|
+      image_urls.push({id: img.id, name: img.filename, _links: {url:"https://secure-crag-93015.herokuapp.com/" + rails_blob_path(img)}})
+    end
+  
+    return image_urls
+  end
+  
   def update_file
     @issue = Issue.find(params[:id])
     @issue.file.attach(params.require(:file))
@@ -132,11 +141,9 @@ class IssuesController < ApplicationController
   
   def show_attachment
     @issue = Issue.find(params[:id])
-    @file = @issue.file.find(params[:id])
-    respond_to do |format|
       format.html {@file.name}
-      format.json {render json: @file, status: :ok, each_serializer: IssueSerializer}
-    end
+      format.json {render json: @issue.file, status: :ok, each_serializer: IssueSerializer}
+    
   end
   
   private
