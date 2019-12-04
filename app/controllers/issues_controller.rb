@@ -183,8 +183,7 @@ class IssuesController < ApplicationController
       @file = 'no file'
     end
     respond_to do |format|
-      format.html {redirect_to issues_url, notice: 'https://secure-crag-93015.herokuapp.com'+@file}
-      format.json {render json:{attachment_content_type: @issue2.content_type,attachment_file_name: @issue2.filename,attachment_file_size: @issue2.byte_size,attachment_created_at: @issue2.created_at ,url: 'secure-crag-93015.herokuapp.com'+@file, status: :ok }}
+      format.json {render json:{url: 'secure-crag-93015.herokuapp.com'+@file, status: :ok }}
       
       
     end
