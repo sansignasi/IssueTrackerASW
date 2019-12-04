@@ -76,12 +76,14 @@ class IssuesController < ApplicationController
   # PATCH/PUT /issues/1.json
   def update
     respond_to do |format|
-      if @issue.update(issue_params)
-        format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
-        format.json { render :show, status: :ok, location: @issue }
+      if !User.exists?(id: params[:assignee_id])
+          format.json {render json: {"error":"User with id="+params[:assignee_id]+" does not exist"}, status: :unprocessable_entity}
       else
-        format.html { render :edit }
-        format.json { render json: @issue.errors, status: :unprocessable_entity }
+        @issue_to_update = Issue.find(params[:id])
+        @issue_to_update.update(issue_params)
+        
+        format.html { redirect_to @issue_to_update }
+        format.json { render json: @issue_to_update, status: :ok, serializer: IssueSerializer}
       end
     end
   end
