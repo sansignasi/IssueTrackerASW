@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   get 'me', to: 'issues#index', as: 'me'
   
 
-
+get '/issues/:id/attachment' => "issues#show_attachment"
+post '/issues/:id/attachment' => "issues#create_attachment"
+  
   root to: "home#show"
 
 end
