@@ -53,8 +53,9 @@ class IssuesController < ApplicationController
   # POST /issues
   # POST /issues.json
   def create
-    if(!request.headers['token']==nil)
-      @user = User.where(token: request.headers['token']).first
+    if(!params[:token] == nil)
+      @user = User.where(token: params[:token]).first
+      params.delete :token
       @issue = Issue.new(issue_params)
       @issue.Creator = @user.id
       @issue.Created = Time.now
