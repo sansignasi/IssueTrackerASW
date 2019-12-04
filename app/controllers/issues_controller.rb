@@ -35,7 +35,7 @@ class IssuesController < ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.json {render json: @issue, status: :ok, serializer: IssueSerializer}
+      format.json {render json: @issue, status: :ok, serializer: IssuesSerializer}
     end
   end
 
