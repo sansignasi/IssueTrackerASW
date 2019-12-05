@@ -11,19 +11,27 @@ Membres:
 Repartiment de tasques:
 
 Ignasi Sans:
-- Info repositori
-- Registre/login Usuaris
+- Issues
+-Comments
+-User
+-Vote/Unvote
+-Watch/unwatch
+
 
 Pablo Iniesta
-- Vote/unvote
-- Comments
+- Issues
+-Comments
+-User
+-Vote/Unvote
+-Watch/unwatch
+
 
 Jordi Santacreu
-- Look&Feel
-- Creació/edició Issues
+- Documentació swagger
 - Attachments
 
 Pau Altet:
-- Llistat issues + filtres
+- User token
+-Documentació swagger
 
 LINK HEROKU: https://secure-crag-93015.herokuapp.com/
