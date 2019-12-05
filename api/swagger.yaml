@@ -7,10 +7,8 @@ info:
 host: secure-crag-93015.herokuapp.com
 
 securityDefinitions:
-   # X-User-Token Aleix: itZhA1GN8j_szrA7BG7_
-   # X-User-Token Xavi: DntD-JGzAHPYZvCz6jnP
-   # X-User-Token Carlota: ofAC6rmhrV2pzizzCfKV
    APIKey:
+     #
      type: apiKey
      in: query
      name: token
@@ -20,18 +18,17 @@ security:
   
 # Describe your paths here
 paths:
-
   /issues:
     get:
       tags:
         - Issues
-      description: Gets `Issue` objects.
+      description: Obtener Issue objeto.
       produces:
         - application/json
       parameters:
         - in: query
           name: type
-          description: Gets `Issue` objects by type
+          description: Obtener Issue objeto por type.
           required: false
           type: string
           enum:
@@ -41,7 +38,7 @@ paths:
             - task
         - in: query
           name: priority
-          description: Gets `Issue` objects by priority
+          description: Obtener Issue objeto por priority.
           required: false
           type: string
           enum:
@@ -52,7 +49,7 @@ paths:
             - blocker
         - in: query
           name: status
-          description: Gets `Issue` objects by status
+          description: Obtener Issue objeto por status.
           required: false
           type: string
           enum:
@@ -64,48 +61,34 @@ paths:
             - invalid
             - won't fix
             - closed
-        - in: query
-          name: assignee
-          description: Gets `Issue` objects by assignee
-          required: false
-          type: integer
       responses:
         '200':
-          description: Successful response
+          description: success
           schema:
             title: ArrayOfIssues
             type: array
             items:
-              $ref: '#/definitions/IssueIndex'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
-        '422':
-          description: User does not exist
-          schema:
-            type: object
-            properties:
-              error:
-                example: User with id=1000 does not exist
+              $ref: '#/definitions/Issue'
     post:
       tags:
         - Issues
-      description: Creates a new `Issue` Object
+      description: Crear una nueva Issue. 
       consumes:
         - application/x-www-form-urlencoded
       parameters:
         - in: formData
           name: Title
           type: string
-          description: Title of the issue
+          description: Título de la Issue.
           required: true
         - in: formData
           name: Description
           type: string
-          description: Description of the issue
+          description: Descripción de la Issue.
         - in: formData
           name: Priority
           type: string
-          description: Priority of the issue
+          description: Prioridad de la Issue.
           required: true
           enum:
             - trivial
@@ -116,7 +99,7 @@ paths:
         - in: formData
           name: Type
           type: string
-          description: Type of the issue
+          description: Tipo de Issue.
           required: true
           enum:
             - bug
@@ -126,71 +109,72 @@ paths:
         - in: formData
           name: Asigned
           type: integer
-          description: Assignee of the issue
+          description: Persona la cual se le asignado la Issue.
       responses:
         '201':
-          description: Created
+          description: Creada
           schema:
             $ref: '#/definitions/Issue'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
         '422':
-          description: User does not exist
+          description: Not authorization.
           schema:
             type: object
             properties:
               error:
-                example: User with id=1000 does not exist
+                example: User no registrado.
   '/issues/{id}':
     get:
       tags:
         - Issues
-      description: Gets an `Issue` object by id
+      description: Obtener Issue identificada por id.
       produces:
         - application/json
       parameters:
         - in: path
           name: id
-          description: ID of an Issue
+          description: Identificador de la issue
           required: true
           type: integer
       responses:
         '200':
-          description: Success
+          description: success
           schema:
             $ref: '#/definitions/Issue'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
         '404':
           $ref: '#/responses/NotFound'
     delete:
       tags:
         - Issues
-      description: Delete a `Issue` object
+      description: Eliminar una issue
       produces:
         - application/json
       parameters:
         - in: path
           name: id
-          description: ID of an Issue
+          description: Identificador de la issue 
           required: true
           type: integer
       responses:
         '200':
-          description: Success
+          description: success
           schema:
             type: object
             properties:
               message:
                 example: success
-        '401':
-          $ref: '#/responses/UnauthorizedError'
+        '422':
+          description: Not authorization.
+          schema:
+            type: object
+            properties:
+              error:
+                example: User no registrado.
         '404':
           $ref: '#/responses/NotFound'
     put:
       tags:
         - Issues
-      description: Update an `Issue` object
+      description: Actualizar la issue
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -199,21 +183,21 @@ paths:
         - in: path
           name: id
           type: string
-          description: Id of the issue
+          description: Identificador de la issue
           required: true
         - in: formData
           name: Title
           type: string
-          description: Title of the issue
+          description: Título de la issue
           required: true
         - in: formData
           name: Description
           type: string
-          description: Description of the issue
+          description: Descripción de la issue
         - in: formData
           name: Status
           type: string
-          description: Status of the issue
+          description: Estado de la issue
           required: true
           enum:
             - new
@@ -227,7 +211,7 @@ paths:
         - in: formData
           name: Priority
           type: string
-          description: Priority of the issue
+          description: Prioridad de la issue
           required: true
           enum:
             - trivial
@@ -238,7 +222,7 @@ paths:
         - in: formData
           name: Type
           type: string
-          description: Type of the issue
+          description: Tipo de issue
           required: true
           enum:
             - bug
@@ -248,160 +232,158 @@ paths:
         - in: formData
           name: Asigned
           type: string
-          description: Assignee of the issue
+          description: Persona la cual se le ha asignado la issue
       responses:
         '200':
-          description: Success
+          description: success
           schema:
-            type: object
-        '401':
-          $ref: '#/responses/UnauthorizedError'
+            $ref: '#/definitions/Issue'
         '404':
           $ref: '#/responses/NotFound'
         '422':
-          description: User does not exist
+          description: Not authorization.
           schema:
             type: object
             properties:
               error:
-                example: User with id=1000 does not exist
+                example: User no registrado.
   '/issues/{issue_id}/comments':
     get:
       tags:
         - Comments
-      description: Gets `Comment` objects from Issue
+      description: Obtener los comentarios de una issue
       produces:
         - application/json
       parameters:
         - in: path
           name: issue_id
-          description: ID of an Issue
+          description: Identificador de la issue
           required: true
           type: integer
       responses:
         '200':
-          description: Successful response
+          description: success
           schema:
             title: ArrayOfComments
             type: array
             items:
               $ref: '#/definitions/Comment'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
+        '422':
+          description: Not authorization.
+          schema:
+            type: object
+            properties:
+              error:
+                example: User no registrado.
         '404':
           $ref: '#/responses/NotFound'
     post:
       tags:
         - Comments
-      description: Creates a new `Comment` for a Issue
+      description: Crea un nuevo comentario para la issue
       consumes:
         - application/x-www-form-urlencoded
       parameters:
         - in: path
           name: issue_id
-          description: ID of an Issue
+          description: Identificador de la issue
           required: true
           type: integer
         - in: formData
           name: body
           type: string
-          description: Text of the comment
+          description: Contenido del comentario
       responses:
         '201':
-          description: Created
+          description: Creado
           schema:
             $ref: '#/definitions/Comment'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
         '404':
           $ref: '#/responses/NotFound'
   '/issues/{issue_id}/comments/{comment_id}':
     get:
       tags:
         - Comments
-      description: Get a `Comment` object from Issue
+      description: Obtener un comentario de una issue
       produces:
         - application/json
       parameters:
         - in: path
           name: issue_id
-          description: ID of an Issue
+          description: Identificador de una Issue
           required: true
           type: integer
         - in: path
           name: comment_id
-          description: ID of a Comment
+          description: Identificador del comentario
           required: true
           type: integer
       responses:
         '200':
-          description: Success
+          description: success
           schema:
             $ref: '#/definitions/Comment'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
         '404':
           $ref: '#/responses/NotFound'
     
     delete:
       tags:
         - Comments
-      description: Delete a `Comment` object
+      description: Eliminar un comentario
       produces:
         - application/json
       parameters:
         - in: path
           name: issue_id
-          description: ID of an Issue
+          description: Identificador de la issue
           required: true
           type: integer
         - in: path
           name: comment_id
-          description: ID of a Comment
+          description: Identificador del comentario
           required: true
           type: integer
       responses:
         '200':
-          description: Success
+          description: success
           schema:
             type: object
-        '401':
-          $ref: '#/responses/UnauthorizedError'
-        '403':
-          description: You can't delete a Comment created by other users
+            properties:
+              message:
+                example: success
+        '422':
+          description: Not authorization.
           schema:
             type: object
             properties:
               error:
-                example: 'Forbidden, you are not the creator of this comment'
+                example: User no registrado.
         '404':
           $ref: '#/responses/NotFound'
   '/issues/{issue_id}/attachment':
     get:
       tags:
         - Attachments
-      description: Get an Attachment from Issue
+      description: Obtener el attachment de la issue
       produces:
         - application/json
       parameters:
         - in: path
           name: issue_id
-          description: ID of an Issue
+          description: Identificador de la issue
           required: true
           type: integer
       responses:
         '200':
-          description: Success
+          description: success
           schema:
-            $ref: '#/definitions/AttachmentIssue'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
+            $ref: '#/definitions/Attachment'
         '404':
           $ref: '#/responses/NotFound'
     post:
       tags:
         - Attachments
-      description: Attach a file to an Issue
+      description: Crear un attachment para una issue
       produces:
         - application/json
       consumes:
@@ -409,28 +391,26 @@ paths:
       parameters:
         - in: path
           name: issue_id
-          description: ID of an Issue
+          description: Identificador de la issue
           required: true
           type: integer
         - in: formData
           name: file
-          description: File to attach
+          description: Archivo que utilizaremos para hacer el attachment
           type: file
           required: true
       responses:
         '201':
-          description: Created
+          description: Attachment creado
           schema:
-            $ref: '#/definitions/AttachmentIssue'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
-        '403':
-          description: You can't attach a file to a Issue of other users
+            $ref: '#/definitions/Attachment'
+        '422':
+          description: Not authorization.
           schema:
             type: object
             properties:
               error:
-                example: 'Forbidden, you are not the creator of this issue'
+                example: User no registrado.
         '404':
           $ref: '#/responses/NotFound'
  
@@ -439,162 +419,167 @@ paths:
       tags:
         - Issues
       description: >-
-        Votes or unvotes the isseue with the ID issue_id as the current
-        authenticated user
+       
+        Votes or unvotes de las  issues con el ID issue_id como el current user autentificado
       parameters:
         - in: path
           name: issue_id
-          description: ID of the issue to vote/unvote
+          description: ID de las issue para vote/unvote
           required: true
           type: integer
       responses:
         '200':
-          description: Success
+          description: success
           schema:
             $ref: '#/definitions/Issue'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
         '404':
           $ref: '#/responses/NotFound'
+        '422':
+          description: Not authorization.
+          schema:
+            type: object
+            properties:
+              error:
+                example: User no registrado.
+  
+  '/issues/{issue_id}/dislike':
+    post:
+      tags:
+        - Issues
+      description: >-
+       
+        Votes or unvotes de las  issues con el ID issue_id como el current user autentificado
+      parameters:
+        - in: path
+          name: issue_id
+          description: ID de las issue para vote/unvote
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/Issue'
+        '404':
+          $ref: '#/responses/NotFound'
+        '422':
+          description: Not authorization.
+          schema:
+            type: object
+            properties:
+              error:
+                example: User no registrado.
+          
           
   '/issues/{issue_id}/watch':
     post:
       tags:
         - Issues
       description: >-
-        Watch or unwatch the isseue with the ID issue_id as the current
-        authenticated user
+        Watch/unwatch de las issue con la ID issue_id como el current user
+  
       parameters:
         - in: path
           name: issue_id
-          description: ID of the issue to watch/unwatch
+          description: ID de las issue de watch/unwatch
           required: true
           type: integer
       responses:
         '200':
-          description: Success
+          description: success
           schema:
             $ref: '#/definitions/Issue'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
         '404':
           $ref: '#/responses/NotFound'
-  '/issues/{issue_id}/status':
-    put:
+        '422':
+          description: Not authorization.
+          schema:
+            type: object
+            properties:
+              error:
+                example: User no registrado.
+          
+  '/issues/{issue_id}/unwatch':
+    post:
       tags:
         - Issues
-      description: Update status of an issue
-      consumes:
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
+      description: >-
+        Watch/unwatch de las issue con la ID issue_id como el current user
+  
       parameters:
         - in: path
           name: issue_id
-          description: ID of the issue
+          description: ID de las issue de watch/unwatch
           required: true
           type: integer
-        - in: formData
-          name: status
-          description: New status
-          required: true
-          type: string
-          enum:
-            - new
-            - open
-            - on hold
-            - resolved
-            - duplicate
-            - invalid
-            - won't fix
-            - closed
       responses:
         '200':
-          description: Success
+          description: success
           schema:
             $ref: '#/definitions/Issue'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
         '404':
           $ref: '#/responses/NotFound'
+        '422':
+          description: Not authorization.
+          schema:
+            type: object
+            properties:
+              error:
+                example: User no registrado.
+          
+  
+
   /users:
     get:
       tags:
         - Users
-      description: Gets `User` objects.
+      description: Obtener los usuarios .
       produces:
         - application/json
       responses:
         '200':
-          description: Success
+          description: success
           schema:
             title: ArrayOfUsers
             type: array
             items:
               $ref: '#/definitions/User'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
   '/users/{id}':
     get:
       tags:
         - Users
-      description: Gets `User` object by id
+      description: Obtener user por id
       produces:
         - application/json
       parameters:
         - in: path
           name: id
-          description: ID of the user
+          description: ID del user
           required: true
           type: integer
       responses:
         '200':
-          description: Success
-          schema:
-            $ref: '#/definitions/UserDetails'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
+          $ref: '#/definitions/User'
         '404':
           $ref: '#/responses/NotFound'
-  /users/current_user:
-    get:
-      tags:
-        - Users
-      description: Gets `User` object of the current user
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Success
-          schema:
-            $ref: '#/definitions/UserDetails'
-        '401':
-          $ref: '#/responses/UnauthorizedError'
 responses:
-  UnauthorizedError:
-    description: API key is missing or invalid
-    schema:
-      type: object
-      properties:
-        error:
-          example: You need to sign in or sign up before continuing.
   NotFound:
-    description: Object not found
+    description: Objecto no encontrado
     schema:
       type: object
       properties:
         error:
-          example: Couldn't find Object with 'id'=10
+          example: Not Found
 definitions:
   Issue:
     type: object
     properties:
       id:
         type: integer
-        example: 1
+        example: 2
       Title:
         type: string
-        example: Issue 1
+        example: No funciona attachment
       Description:
         type: string
         example: description
@@ -619,115 +604,36 @@ definitions:
       created_at:
         type: string
         format: date
-        example: '2019-05-07T18:28:01.933Z'
+        example: '2019-06-07T18:28:01.933Z'
       updated_at:
         type: string
         format: date
-        example: '2019-05-07T18:28:02.933Z'
-        
-  IssueIndex:
-    type: object
-    properties:
-      id:
-        type: integer
-        example: 1
-      Title:
-        type: string
-        example: Issue 1
-      Description:
-        type: string
-        example: description
-      Type:
-        type: string
-        example: Bug
-      Priority:
-        type: string
-        example: Critical
-      Status:
-        type: string
-        example: New
-      Votes:
-        type: integer
-        example: 1
-      Watchers:
-        type: integer
-        example: 1
-      is_voted_by_current_user:
-        type: boolean
-        example: true
-      is_watched_by_current_user:
-        type: boolean
-        example: false
-      created_at:
-        type: string
-        format: date
-        example: '2017-05-07T18:28:01.933Z'
-      updated_at:
-        type: string
-        format: date
-        example: '2017-05-07T18:28:02.933Z'
-      _links:
-        type: object
-        properties:
-          self:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /issues/1
-          creator:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /users/1
-          assignee:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /users/1
+        example: '2019-06-07T18:28:02.933Z'
+
   Comment:
     type: object
     properties:
+      id:
+        type: string
+        example: 1
       body:
         type: string
-        example: This is an example comment
+        example: body del comentario
+      issue_id:
+        type: string
+        example: 1
+      user_id:
+        type: string
+        example: 1  
       created_at:
         type: string
         format: date
-        example: '2017-11-25T12:18:04.876Z'
+        example: '2019-06-25T12:18:04.876Z'
       updated_at:
         type: string
         format: date
-        example: '2017-11-25T12:18:04.876Z'
-      _links:
-        type: object
-        properties:
-          self:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /issues/1/comments/21
-          issue:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /issues/1
-          attachment:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /issues/1/comments/21/attachment
-          creator:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /users/1
+        example: '2019-06-25T12:18:04.876Z'
+     
   Attachment:
     type: object
     properties:
@@ -743,96 +649,26 @@ definitions:
       attachment_updated_at:
         type: string
         format: date
-        example: '2017-12-04T10:22:10.641Z'
+        example: '2019-12-04T10:22:10.641Z'
       url:
         type: string
         example: 'http://example.com/image.jpg'
-      _links:
-        type: object
-        properties:
-          comment:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /issues/1/comments/21
-          self:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /issues/1/comments/21/attachment
-          creator:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /users/1
-  AttachmentIssue:
-    type: object
-    properties:
-      attachment_content_type:
-        type: string
-        example: image/jpeg
-      attachment_file_name:
-        type: string
-        example: image.jpg
-      attachment_file_size:
-        type: integer
-        example: 2673366
-      attachment_updated_at:
-        type: string
-        format: date
-        example: '2017-12-04T10:22:10.641Z'
-      url:
-        type: string
-        example: 'http://example.com/image.jpg'
-      _links:
-        type: object
-        properties:
-          issue:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /issues/1
-          self:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /issues/1/attachment
-          creator:
-            type: object
-            properties:
-              href:
-                type: string
-                example: /users/1
+    
   User:
     type: object
     properties:
       id:
         type: integer
         example: 1
-      name:
+      first_name:
         type: string
-        example: Aleix Balletbó
+        example: Pablo Iniesta
       email:
         type: string
-        example: aleix.balletbo@est.fib.upc.edu
-  UserDetails:
-    type: object
-    properties:
-      id:
-        type: integer
-        example: 1
-      name:
+        example: pabloiniestabdn@gmail.com
+      uid:
         type: string
-        example: Aleix Balletbó
-      email:
+        example: 114029767620150288445
+      token:
         type: string
-        example: aleix.balletbo@est.fib.upc.edu
-      issues_created:
-        type: array
-        items:
-          $ref: '#/definitions/Issue'
+        example: asw_Y6G4U7_MkS8XYAq-yByxpA
