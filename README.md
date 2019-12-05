@@ -24,6 +24,7 @@ Pablo Iniesta
 -User
 -Vote/Unvote
 -Watch/unwatch
+-Documentació swagger
 
 
 Jordi Santacreu
