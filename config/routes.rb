@@ -16,10 +16,8 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'home', to: 'home#show'
   get 'me', to: 'issues#index', as: 'me'
-  
-
-get '/issues/:id/attachment', to: "issues#show_attachment"
-post '/issues/:id/attachment' => "issues#create_attachment"
+  get '/issues/:id/attachment', to: "issues#show_attachment"
+  post '/issues/:id/attachment1' => "issues#create_attachment"
   
   root to: "home#show"
 

@@ -1,6 +1,8 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
+  include Rails.application.routes.url_helpers
+
 
   # GET /issues
   # GET /issues.json
@@ -63,7 +65,7 @@ class IssuesController < ApplicationController
       end
     else
       @issue = Issue.new(issue_params)
-      @issue.Creator = user.id
+      @issue.Creator = current_user.id
       @issue.Created = Time.now
       @issue.Status = "new"
       respond_to do |format|
@@ -87,19 +89,18 @@ class IssuesController < ApplicationController
   def update
     respond_to do |format|
       if(!params[:Asigned] == nil)
-          if !User.exists?(id: params[:Asigned])
-              format.json {render json: {"error":"User with id="+params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
-          else
-            @issue_to_update = Issue.find(params[:id])
-            @issue_to_update.Updated = Time.now
-            @issue_to_update.update(issue_params)
-            format.html { redirect_to @issue_to_update }
-            format.json { render json: @issue_to_update, status: :ok, serializer: IssuesSerializer}
-          end
+        if !User.exists?(id: params[:Asigned])
+            format.json {render json: {"error":"User with id="+params[:Asigned]+" does not exist"}, status: :unprocessable_entity}
+        else
+          @issue_to_update = Issue.find(params[:id])
+          @issue_to_update.Updated = Time.now
+          @issue_to_update.update(issue_params)
+          format.html { redirect_to @issue_to_update }
+          format.json { render json: @issue_to_update, status: :ok, serializer: IssuesSerializer}
+        end
       else
         @issue_to_update = Issue.find(params[:id])
         @issue_to_update.Updated = Time.now
-        @issue_to_update.Asigned = Issue.find(params[:id]).Asigned
         @issue_to_update.update(issue_params)
         format.html { redirect_to @issue_to_update }
         format.json { render json: @issue_to_update, status: :ok, serializer: IssuesSerializer}
@@ -114,7 +115,19 @@ class IssuesController < ApplicationController
     @issue2 = Issue.find(params[:id])
     @issue2.destroy
     respond_to do |format|
-      format.html { redirect_to issues_url, notice: 'Issue was successfully destroyed.' }
+      format.json { render json: {"message": "success"}, status: :ok }
+    end
+  end
+  
+  
+  
+
+  # DELETE /issues/1
+  # DELETE /issues/1.json
+  def destroy
+    @issue2 = Issue.find(params[:id])
+    @issue2.destroy
+    respond_to do |format|
       format.json { render json: {"message": "success"}, status: :ok }
     end
   end
@@ -130,6 +143,14 @@ class IssuesController < ApplicationController
         #end
         #redirect_to :issue
     end
+    @issue = Issue.find(params[:id])
+      @issue.upvote_by(current_user)
+      if(User.find(current_user.id).voted_for? @issue)
+      else
+        @issue.increment!("Vote")
+      end
+      redirect_to :issue
+
   end
     
   def downvote
@@ -156,14 +177,7 @@ class IssuesController < ApplicationController
     redirect_to :issue
   end
   
-  def images
-    image_urls = Array.new
-    @issue.attachments.each do |img|
-      image_urls.push({id: img.id, name: img.filename, _links: {url:"https://secure-crag-93015.herokuapp.com/" + rails_blob_path(img)}})
-    end
   
-    return image_urls
-  end
   
   def update_file
     @issue = Issue.find(params[:id])
@@ -172,10 +186,21 @@ class IssuesController < ApplicationController
   
   def show_attachment
     @issue = Issue.find(params[:id])
-    
-      format.html {@file.name}
-      format.json {render json: @issue.id, status: :ok}
-    
+    @file = nil
+    @issue2 = nil
+    if (@issue.file.attached? == true)
+      @file = rails_blob_path(@issue.file, only_path: true) if @issue.file.attached?
+      @issue2 =ActiveStorage::Bolb.find(params[:id])
+    else
+      @file = 'no file'
+      @issue2=nil
+    end
+    respond_to do |format|
+      format.html {redirect_to issues_url, notice: 'https://secure-crag-93015.herokuapp.com'+@file}
+      format.json {render json:{attachment_content_type: @issue2.content_type,attachment_file_name: @issue2.filename,attachment_file_size: @issue2.byte_size,attachment_created_at: @issue2.created_at ,url: 'secure-crag-93015.herokuapp.com'+@file, status: :ok }}
+      
+      
+    end
   end
   
   private
