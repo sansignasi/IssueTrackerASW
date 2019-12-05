@@ -8,7 +8,6 @@ host: secure-crag-93015.herokuapp.com
 
 securityDefinitions:
    APIKey:
-     #
      type: apiKey
      in: query
      name: token
