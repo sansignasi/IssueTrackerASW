@@ -65,7 +65,7 @@ class IssuesController < ApplicationController
       end
     else
       @issue = Issue.new(issue_params)
-      @issue.Creator = current_user.id
+      @issue.Creator = user.id
       @issue.Created = Time.now
       @issue.Status = "new"
       respond_to do |format|
